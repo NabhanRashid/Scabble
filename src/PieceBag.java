@@ -5,7 +5,7 @@ public class PieceBag {
     /**
      * ArrayList of pieces that the bag currently has, stored as characters
      */
-    protected ArrayList pieces;
+    protected ArrayList<Character> pieces;
 
     /**
      * Instantiation for PieceBag that initializes the ArrayList
@@ -54,4 +54,11 @@ public class PieceBag {
         return pieces.size();
     }
 
+    /**
+     * Creates a String with all necessary info for a save file
+     * @return String with save file information
+     */
+    public String saveInfo() {
+
+    }
 }
