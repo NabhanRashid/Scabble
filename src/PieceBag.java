@@ -5,7 +5,7 @@ public class PieceBag {
     /**
      * ArrayList of pieces that the bag currently has, stored as characters
      */
-    protected ArrayList pieces;
+    protected ArrayList<Character> pieces;
 
     /**
      * Instantiation for PieceBag that initializes the ArrayList
