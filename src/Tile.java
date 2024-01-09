@@ -76,7 +76,7 @@ public class Tile {
      * Adds onto the tile, overlapping it with a new character, and adding to the height
      * @param letter letter to set the tile to
      * @param isBlank whether the tile is a blank for points
-     */
+     */ //Hello
     public void addPiece(char letter, boolean isBlank) {
         this.letter = letter;
         this.isBlank = isBlank;
