@@ -93,12 +93,4 @@ public class Player extends PieceBag {
     public void outOfGame() {
         inGame = false;
     }
-
-    /**
-     * Creates a String with all necessary info for a save file
-     * @return String with save file information
-     */
-    public String saveInfo() {
-
-    }
 }

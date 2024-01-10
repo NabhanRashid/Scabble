@@ -53,12 +53,4 @@ public class PieceBag {
     public int getSize() {
         return pieces.size();
     }
-
-    /**
-     * Creates a String with all necessary info for a save file
-     * @return String with save file information
-     */
-    public String saveInfo() {
-
-    }
 }
