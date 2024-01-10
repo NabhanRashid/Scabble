@@ -1,9 +1,13 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * The pieceBag for scrabble, from which players are extended as they are really just glorified pieceBags
+ */
 public class PieceBag {
     /**
      * ArrayList of pieces that the bag currently has, stored as characters
+     * A blank piece will be stored as a "-"
      */
     protected ArrayList<Character> pieces;
 
@@ -60,5 +64,13 @@ public class PieceBag {
      */
     public String saveInfo() {
 
+        String pieceBagSaveInfo = "";
+
+        for (int i = 0, end = getSize() - 1; i < end; i++) {
+            pieceBagSaveInfo += pieces.get(i) + ",";
+        }
+        pieceBagSaveInfo += pieces.get(getSize() - 1);
+
+        return pieceBagSaveInfo;
     }
 }
