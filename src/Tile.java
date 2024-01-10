@@ -88,6 +88,13 @@ public class Tile {
      * @return String with save file information
      */
     public String saveInfo() {
-        // TODO
+
+        if (getPoint() == 0) {
+            return " " + letter;
+        } else if (getPoint() == -1) {
+            return "-";
+        } else {
+            return String.valueOf(letter);
+        }
     }
 }

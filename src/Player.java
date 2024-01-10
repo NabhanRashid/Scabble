@@ -99,6 +99,21 @@ public class Player extends PieceBag {
      * @return String with save file information
      */
     public String saveInfo() {
-        // TODO
+
+        String playerSaveInfo = "";
+
+        playerSaveInfo += name + "," + getSize() + ",";
+        for (char piece : pieces) {
+            playerSaveInfo += piece + ",";
+        }
+
+        playerSaveInfo += points + ",";
+        if (inGame) {
+            playerSaveInfo += "t";
+        } else {
+            playerSaveInfo += "f";
+        }
+
+        return playerSaveInfo;
     }
 }
