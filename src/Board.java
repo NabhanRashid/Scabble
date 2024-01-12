@@ -97,6 +97,14 @@ public class Board {
             {0,-3,0,0,2,0,2,0,0,-3,0,0,2,0,2,0,0,-3,0},
             {-3,0,0,3,0,0,0,3,0,-3,0,3,0,0,0,3,0,0,-3}};
 
+    public void display() {
+        for (int i = 0; i < players.size(); i++) {
+            System.out.printf(players.get(i).getName() + ": " + players.get(i).getPoints() + "\t");
+        }
+        System.out.println("\n\n");
+        System.out.println("Your letters: " );
+    }
+
     /**
      * The default number of each piece for a small sized board
      * Created using ([Area of small board]/[Area of medium board] * medCounts) with ceiling rounding (It's an about 0.5 ratio)

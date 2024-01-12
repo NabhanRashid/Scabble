@@ -31,6 +31,30 @@ public class Player extends PieceBag {
     }
 
     /**
+     * Gets player name
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Gets the players amount of points
+     * @return points
+     */
+    public int getPoints() {
+        return points;
+    }
+
+    /**
+     * Adds points to the player's total
+     * @param points amount to add
+     */
+    public void addPoints(int points) {
+        this.points += points;
+    }
+
+    /**
      * Removes pieces from player's bag, given they exist
      * @return true if player has pieces, false if player does not have pieces
      */
