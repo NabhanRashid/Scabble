@@ -98,9 +98,15 @@ public class Board {
 
     /**
      * The default number of each piece for a small sized board
+     * Created using ([Area of small board]/[Area of medium board] * medCounts) with ceiling rounding (It's an about 0.5 ratio)
      */
     private static final int[] defaultSmallPieceCounts = {
-            // TODO
+            5, 1, 1, 2, 6, // A B C D E
+            1, 2, 1, 5, 1, // F G H I J
+            1, 2, 1, 3, 4, // K L M N O
+            1, 1, 3, 2, 3, // P Q R S T
+            2, 1, 1, 1, 1, // U V W X Y
+            1, 1 // Z Blank
     };
 
     /**
@@ -117,9 +123,15 @@ public class Board {
 
     /**
      * The default number of each piece for a big sized board
+     * Created using ([Area of big board]/[Area of medium board] * medCounts) with ceiling rounding (It's about 1.6 ratio)
      */
     private static final int[] defaultBigPieceCounts = {
-            // TODO
+            15, 4, 4, 7, 20, // A B C D E
+            4, 5, 4, 15, 2, // F G H I J
+            2, 7, 4, 10, 13, // K L M N O
+            4, 2, 10, 7, 10, // P Q R S T
+            7, 4, 4, 2, 4, // U V W X Y
+            2, 4 // Z Blank
     };
 
     /**
