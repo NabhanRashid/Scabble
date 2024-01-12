@@ -1,3 +1,4 @@
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 public class Board {
@@ -11,7 +12,7 @@ public class Board {
     /**
      * Stores the list of all valid words
      */
-    protected String[] wordList;
+    protected ArrayList<String> wordList;
     /**
      * Holds the current board of tiles
      */
@@ -33,7 +34,7 @@ public class Board {
      */
     protected int turn;
     /**
-     * Holds a board of modifiers for the small tile board
+     * Holds a board of modifiers for the small tile board (11x11)
      *
      * The following applies to all modifier arrays:
      *      2 means double letter
@@ -54,7 +55,7 @@ public class Board {
             {0,-2,0,0,0,2,0,0,0,-2,0},
             {-2,0,0,0,2,0,2,0,0,0,-2}};
     /**
-     * Holds a board of modifiers for the middle tile board
+     * Holds a board of modifiers for the middle tile board (15x15)
      */
     protected static final int[][] mediumBoardMultipliers = {
             {-3,0,0,2,0,0,0,-3,0,0,0,2,0,0,-3},
@@ -73,7 +74,7 @@ public class Board {
             {0,-2,0,0,0,3,0,0,0,3,0,0,0,-2,0},
             {-3,0,0,2,0,0,0,-3,0,0,0,2,0,0,-3}};
     /**
-     * Holds a board of modifiers for the large tile board
+     * Holds a board of modifiers for the large tile board (19x19)
      */
     protected static final int[][] largeBoardMultipliers = {
             {-3,0,0,3,0,0,0,3,0,-3,0,3,0,0,0,3,0,0,-3},
@@ -141,8 +142,85 @@ public class Board {
      * @param playerNames Name of players, the number of players is implicitly included
      * @param pieceBagCounts The count of each piece, (e.g : 1 A, 5 B, 100 C...), -1 will take the default given by the board. 27 values A-Z plus blank count
      */
-    public Board(int boardSize, String[] wordFileNames, String[] playerNames, String[] pieceBagCounts) {
+    public Board(int boardSize, String[] wordFileNames, String[] playerNames, int[] pieceBagCounts) {
+        // Initialization of the tileBoard
+        switch (boardSize) {
+            case 0 -> {
+                currentTiles = new Tile[11][11];
+                temporaryTiles = new Tile[11][11];
+            }
+            case 1 -> {
+                currentTiles = new Tile[15][15];
+                temporaryTiles = new Tile[15][15];
+            }
+            case 2 -> {
+                currentTiles = new Tile[19][19];
+                temporaryTiles = new Tile[19][19];
+            }
+            default -> throw new InvalidParameterException("Not a possible board size");
+        }
+
+        for (int i = 0, size = currentTiles.length; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                currentTiles[i][j] = new Tile();
+                temporaryTiles[i][j] = new Tile();
+            }
+        }
+
+        // Definition of wordFiles to be used
+        this.wordFileNames = wordFileNames.clone();
+
+        // Addition of players with names
+        for (String name : playerNames) {
+            if (name.contains(",")) {
+                throw new InvalidParameterException("Do not include a name with a comma please");
+            }
+            players.add(new Player(name));
+        }
+
+        // Initialization and creation of the PieceBag
+        if (pieceBagCounts.length != 27) {
+            throw new InvalidParameterException("Define the amount of all pieces please");
+        }
+
+        bag = new PieceBag();
+
+        for (int i = 0; i < 26; i++) {
+            int count = pieceBagCounts[i];
+
+            if (count < -1) {
+                throw new InvalidParameterException("Do not add a number of pieces less than -1");
+            }
+
+            if (count == -1) {
+                switch (boardSize) {
+                    case 0 -> bag.addPieces((char) ('A' + i), defaultSmallPieceCounts[i]);
+                    case 1 -> bag.addPieces((char) ('A' + i), defaultMediumPieceCounts[i]);
+                    case 2 -> bag.addPieces((char) ('A' + i), defaultBigPieceCounts[i]);
+                }
+            }
+
+            bag.addPieces((char) ('A' + i), count);
+        }
+
+        if (pieceBagCounts[26] < -1) {
+            throw new InvalidParameterException("Do not add a number of pieces less than -1");
+        }
+        if (pieceBagCounts[26] == -1) {
+            switch (boardSize) {
+                case 0 -> bag.addPieces(' ', defaultSmallPieceCounts[26]);
+                case 1 -> bag.addPieces(' ', defaultMediumPieceCounts[26]);
+                case 2 -> bag.addPieces(' ', defaultBigPieceCounts[26]);
+            }
+        }
+        bag.addPieces(' ', pieceBagCounts[26]);
+
+        // Creation of wordList
         // TODO
+
+
+        // The turn starts at 0
+        turn = 0;
     }
 
 }

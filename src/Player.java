@@ -52,7 +52,7 @@ public class Player extends PieceBag {
 
     /**
      * Adds an array of pieces to the players hand, and sorts the pieces
-     * @param pieces Pieces to be added
+     * @param pieces Pieces to be added, a blank is a space
      */
     public void addPieces(ArrayList<Character> pieces) {
         for (Character piece : pieces) {

@@ -35,7 +35,7 @@ public class PieceBag {
     /**
      * Adds pieces to the bag, randomizing afterwards
      *
-     * @param piece character to be added
+     * @param piece character to be added, a blank is a space
      * @param amount how many of that character to be added
      */
     public void addPieces(char piece, int amount) {
