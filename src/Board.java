@@ -96,8 +96,30 @@ public class Board {
             {0,-3,0,0,2,0,2,0,0,-3,0,0,2,0,2,0,0,-3,0},
             {-3,0,0,3,0,0,0,3,0,-3,0,3,0,0,0,3,0,0,-3}};
 
+    /**
+     * The default number of each piece for a small sized board
+     */
+    private static final int[] defaultSmallPieceCounts = {
+            // TODO
+    };
+
+    /**
+     * The default number of each piece for a medium sized board
+     */
     private static final int[] defaultMediumPieceCounts = {
-            9, 2, 2,
+            9, 2, 2, 4, 12, // A B C D E
+            2, 3, 2, 9, 1, // F G H I J
+            1, 4, 2, 6, 8, // K L M N O
+            2, 1, 6, 4, 6, // P Q R S T
+            4, 2, 2, 1, 2, // U V W X Y
+            1, 2 // Z Blank
+    };
+
+    /**
+     * The default number of each piece for a big sized board
+     */
+    private static final int[] defaultBigPieceCounts = {
+            // TODO
     };
 
     /**
@@ -108,7 +130,7 @@ public class Board {
      * @param pieceBagCounts The count of each piece, (e.g : 1 A, 5 B, 100 C...), -1 will take the default given by the board. 27 values A-Z plus blank count
      */
     public Board(int boardSize, String[] wordFileNames, String[] playerNames, String[] pieceBagCounts) {
-
+        // TODO
     }
 
 }
