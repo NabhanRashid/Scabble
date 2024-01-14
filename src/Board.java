@@ -296,12 +296,6 @@ abstract class Board {
     abstract public void saveBoard(String fileName);
 
     /**
-     * Constructs board from a saveFile
-     * @param fileName Name of file to construct from
-     */
-    abstract public Board(String fileName);
-
-    /**
      * Exchange current player's pieces with pieces in the bag, and go to next player's turn
      */
     public void exchangeLetters() {
