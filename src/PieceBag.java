@@ -28,7 +28,11 @@ public class PieceBag {
      */
     public char takePiece() {
         char piece = (char) pieces.get(0);
-        pieces.remove(0);
+        try {
+            pieces.remove(0);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("There are no more pieces");
+        }
         return piece;
     }
 

@@ -265,15 +265,14 @@ abstract class Board {
      * Current board state, with emoji tiles
      */
     public void display() {
-        int currentPlayer = turn;
         for(Player player : players) {
             System.out.printf(player.getName() + ": " + player.getPoints() + "\t");
         }
         System.out.print("\n\n\nYour letters: ");
         for (int i = 0; i < 6; i++) {
-            System.out.print(players.get(currentPlayer).getLetters(i) + ", ");
+            System.out.print(players.get(turn).getLetters(i) + ", ");
         }
-        System.out.print(players.get(currentPlayer).getLetters(6) + "\n\n");
+        System.out.print(players.get(turn).getLetters(6) + "\n\n");
         printTiles(currentTiles);
     }
 
@@ -283,6 +282,11 @@ abstract class Board {
      * @param board board to be printed
      */
     public void printTiles(Tile[][] board) {
+        System.out.print("\n\n\nYour letters: ");
+        for (int i = 0; i < 6; i++) {
+            System.out.print(players.get(turn).getLetters(i) + ", ");
+        }
+        System.out.print(players.get(turn).getLetters(6) + "\n\n");
         for (int j = 0; j < board.length; j++) {
             for (int i = 0; i < board[0].length; i++) {
                 if(board[j][i].isBlank()) {
@@ -302,7 +306,7 @@ abstract class Board {
      * Saves the board to the given fileName
      * @param fileName Name of file to save to
      */
-    abstract public void saveBoard(String fileName);
+    public abstract void saveBoard(String fileName);
 
     /**
      * Exchange current player's pieces with pieces in the bag, and go to next player's turn
@@ -387,9 +391,11 @@ abstract class Board {
         }
         if (boardWordScan() == -1) {
             System.out.println("There are invalid word(s) in your placement. You do not receive any points");
+            players.get(turn).unsuccessfulPlay();
         } else {
             System.out.println("Placement successful. Your play is worth " + boardWordScan() + " points");
             players.get(turn).addPoints(boardWordScan());
+            players.get(turn).successfulPlay(bag);
             currentTiles = temporaryTiles;
         }
         skipTurn();
@@ -487,7 +493,7 @@ abstract class Board {
     boolean hasTileChanged(int[] pos) {
         return temporaryTiles[pos[0]][pos[1]].getHeight() != currentTiles[pos[0]][pos[1]].getHeight();
     }
-    abstract void letterPlacement(int[] pos);
+    public abstract void letterPlacement(int[] pos);
 
-    abstract boolean placementValidity();
+    public abstract boolean placementValidity();
 }

@@ -19,6 +19,8 @@ public class Player extends PieceBag {
      */
     private int points;
 
+    private ArrayList<Character> piecesInUse;
+
     /**
      * Constructs a player given a name, all other values are defaulted
      * @param name Name given to player
@@ -28,6 +30,7 @@ public class Player extends PieceBag {
         this.name = name;
         inGame = true;
         points = 0;
+        piecesInUse = new ArrayList<>();
     }
 
     /**
@@ -63,35 +66,10 @@ public class Player extends PieceBag {
     }
 
     /**
-     * Removes pieces from player's bag, given they exist
-     * @return true if player has pieces, false if player does not have pieces
-     */
-    public boolean TakePieces(ArrayList<Character> pieces) {
-        for (Character piece : pieces) {
-            if (!this.pieces.remove(piece)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Sorts the player's pieces, it's not in PieceBag as the PieceBag does not need to be sorted
      */
     public void sort() {
         Collections.sort(pieces);
-    }
-
-    /**
-     * Adds an array of pieces to the players hand, and sorts the pieces
-     * @param pieces Pieces to be added, a blank is a space
-     */
-    public void addPieces(ArrayList<Character> pieces) {
-        for (Character piece : pieces) {
-            this.pieces.add(piece);
-        }
-
-        sort();
     }
 
     /**
@@ -124,5 +102,44 @@ public class Player extends PieceBag {
      */
     public void outOfGame() {
         inGame = false;
+    }
+
+    /**
+     * Uses a piece from player's bag, given they exist
+     *
+     * @return true if player has the piece, false if player does not
+     */
+    public boolean tempUse(char letter) {
+        if (pieces.contains(letter)) {
+            pieces.remove(letter);
+            piecesInUse.add(letter);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Discards the values of piecesInUse and draws new letters from the PieceBag
+     *
+     * @param pieceBag bag to draw pieces from
+     */
+    public void successfulPlay(PieceBag pieceBag) {
+        piecesInUse.clear();
+        while (pieces.size() < 7) {
+            pieces.add(pieceBag.takePiece());
+        }
+        sort();
+    }
+
+    /**
+     * Returns the pieces that failed to be placed to the player's hand
+     */
+    public void unsuccessfulPlay() {
+        for (Character piece : piecesInUse) {
+            pieces.add(piece);
+        }
+        piecesInUse.clear();
+        sort();
     }
 }
