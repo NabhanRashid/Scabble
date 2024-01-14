@@ -351,6 +351,7 @@ abstract class Board {
             }
             option = 0;
             while (option == 0) {
+                printTiles(temporaryTiles);
                 System.out.println("""
                     Choose one of the following options:
                     \tKeep playing word
@@ -360,13 +361,17 @@ abstract class Board {
                 try {
                     option = Integer.parseInt(input.nextLine());
                     switch (option) {
-                        case 1 -> letterPlacement(currentPos);
-                        case 2 -> placing = false;
-                        case 3 -> return false;
-                        default -> System.out.println("Not a valid option");
+                        case 1:
+                        case 2:
+                            placing = false;
+                        case 3:
+                            return false;
+                        default:
+                            System.out.println("Not a valid option");
+                            option = 0;
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println();
+                    System.out.println("Not a valid option");
                 }
             }
         }
