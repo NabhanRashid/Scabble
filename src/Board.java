@@ -329,7 +329,7 @@ abstract class Board {
      * @return Points player receives if all words are valid, -1 if any are not
      */
     public int boardWordScan() {
-        for (int col = 0, end = temporaryTiles.length; col < end; col++) {
+        for (int col = 0, end = temporaryTiles.length; col <= end; col++) {
 
         }
     }
@@ -345,8 +345,8 @@ abstract class Board {
 
     /**
      * Calculates how many points a word is worth, including pointModifiers (modified only if a letter has been PLACED on it)
-     * @param startPoint start point of where the word is
-     * @param endPoint end point of where the word is
+     * @param startPoint start point of where the word is (inclusive)
+     * @param endPoint end point of where the word is  (exclusive)
      * @return points gotten from word
      */
     public int wordPoints(int[] startPoint, int[] endPoint) {
