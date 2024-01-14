@@ -329,13 +329,33 @@ abstract class Board {
         int[] currentPos = startPos;
         letterPlacement();
     }
+
+    /**
+     * Scans the entire board to ensure all words are valid
+     * @return Points player receives if all words are valid, -1 if any are not
+     */
     public int boardWordScan() {
-        // TODO
+        for (int col = 0, end = temporaryTiles.length; col < end; col++) {
+
+        }
     }
+
+    /**
+     * Checks whether a word is within the wordList (Using binary search)
+     * @param word Word to check validity of
+     * @return true if word is found, false if not
+     */
     private boolean isValidWord(String word) {
         // TODO
     }
-    public int wordPoints(int[] startPoint) {
+
+    /**
+     * Calculates how many points a word is worth, including pointModifiers (modified only if a letter has been PLACED on it)
+     * @param startPoint start point of where the word is
+     * @param endPoint end point of where the word is
+     * @return points gotten from word
+     */
+    public int wordPoints(int[] startPoint, int[] endPoint) {
         // TODO
     }
 
