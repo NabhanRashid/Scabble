@@ -352,25 +352,69 @@ abstract class Board {
      * @return Points player receives if all words are valid, -1 if any are not
      */
     public int boardWordScan() {
-        for (int col = 0, end = temporaryTiles.length; col <= end; col++) {
 
+        int playerPoints = 0;
+
+        // Checking for validity of all vertical words
+        for (int col = 0, end = temporaryTiles.length; col < end; col++) {
+            for (int row = 0; row < end; row++) {
+                // If a tile in the vertical line is not empty
+                if (temporaryTiles[col][row].getLetter() != 0) {
+                    int wordStart = row;
+                    while (row != end && temporaryTiles[col][row].getLetter() != 0) {
+                        row++;
+                    }
+
+                    // Now wordStart is the beginning of the word (inclusive) and row is the end of the word (exclusive)
+
+                    if (!isValidWord(new int[]{col, wordStart}, new int[]{col, row})) {
+                        return -1;
+                    }
+
+                    playerPoints += wordPoints(new int[]{col, wordStart}, new int[]{col, row});
+                }
+            }
         }
+
+        // Checking validity for all horizontal words
+        for (int row = 0, end = temporaryTiles.length; row < end; row++) {
+            for (int col = 0; col < end; col++) {
+                // If a tile in horizontal line is not empty
+                if (temporaryTiles[col][row].getLetter() != 0) {
+                    int wordStart = col;
+                    while (col != end && temporaryTiles[col][row].getLetter() != 0) {
+                        col++;
+                    }
+
+                    // Now wordStart is the beginning of the word (inclusive) and row is the end of the word (exclusive)
+
+                    if (!isValidWord(new int[]{wordStart, row}, new int[]{col, row})) {
+                        return -1;
+                    }
+
+                    playerPoints += wordPoints(new int[]{wordStart, row}, new int[]{col, row});
+                }
+            }
+        }
+
+        return playerPoints;
     }
 
     /**
      * Checks whether a word is within the wordList (Using binary search)
-     * @param word Word to check validity of
+     * @param startPoint start point of where the word is (inclusive)
+     * @param endPoint end point of where the word is (exclusive)
      * @return true if word is found, false if not
      */
-    private boolean isValidWord(String word) {
+    private boolean isValidWord(int[] startPoint, int[] endPoint) {
         // TODO
     }
 
     /**
      * Calculates how many points a word is worth, including pointModifiers (modified only if a letter has been PLACED on it)
      * @param startPoint start point of where the word is (inclusive)
-     * @param endPoint end point of where the word is  (exclusive)
-     * @return points gotten from word
+     * @param endPoint end point of where the word is (exclusive)
+     * @return points gotten from word, or 0 if the no letter in word has been placed on turn
      */
     public int wordPoints(int[] startPoint, int[] endPoint) {
         // TODO
