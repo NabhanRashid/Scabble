@@ -274,14 +274,23 @@ abstract class Board {
             System.out.print(players.get(currentPlayer).getLetters(i) + ", ");
         }
         System.out.print(players.get(currentPlayer).getLetters(6) + "\n\n");
-        for (int j = 0; j < currentTiles.length; j++) {
-            for (int i = 0; i < currentTiles[0].length; i++) {
-                if(currentTiles[j][i].isBlank()) {
-                    System.out.print(currentTiles[j][i].getLetter());
-                } else if (currentTiles[j][i].getLetter() == 0) {
+        printTiles(currentTiles);
+    }
+
+    /**
+     * Prints a board of tiles to the console
+     *
+     * @param board board to be printed
+     */
+    public void printTiles(Tile[][] board) {
+        for (int j = 0; j < board.length; j++) {
+            for (int i = 0; i < board[0].length; i++) {
+                if(board[j][i].isBlank()) {
+                    System.out.print(board[j][i].getLetter());
+                } else if (board[j][i].getLetter() == 0) {
                     System.out.print(Character.toString(0x2B1C));
                 } else {
-                    int unicodeEmoji = 0x1F1E5 + (currentTiles[j][i].getLetter() - 'A');
+                    int unicodeEmoji = 0x1F1E5 + (board[j][i].getLetter() - 'A');
                     System.out.print(Character.toString(unicodeEmoji));
                 }
             }
@@ -329,7 +338,9 @@ abstract class Board {
         Scanner input = new Scanner(System.in);
         temporaryTiles = currentTiles;
         int[] currentPos = startPos;
-        while (true) {
+        int option = 0;
+        boolean placing = true;
+        while (placing) {
             letterPlacement(currentPos);
             // For direction, up is 0, right is 1, down is 2, left is 3
             switch (direction) {
@@ -338,12 +349,26 @@ abstract class Board {
                 case 2 -> currentPos[1] -= 1;
                 case 3 -> currentPos[0] -= 1;
             }
-            System.out.println("""
+            option = 0;
+            while (option == 0) {
+                System.out.println("""
                     Choose one of the following options:
-                    \tPlay another letter
+                    \tKeep playing word
                     \tFinish word
                     \tRestart word
                     """);
+                try {
+                    option = Integer.parseInt(input.nextLine());
+                    switch (option) {
+                        case 1 -> letterPlacement(currentPos);
+                        case 2 -> placing = false;
+                        case 3 -> return false;
+                        default -> System.out.println("Not a valid option");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println();
+                }
+            }
         }
     }
 
