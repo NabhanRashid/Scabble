@@ -11,7 +11,7 @@ abstract class Board {
      * List of names for word files for the save info
      * This save info will work similar to the system used by git
      */
-    private final String[] wordFileNames;
+    private String[] wordFileNames;
 
     /**
      * Stores the list of all valid words
