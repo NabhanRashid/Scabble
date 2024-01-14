@@ -265,7 +265,7 @@ abstract class Board {
      * Current board state, with emoji tiles
      */
     public void display() {
-        int currentPlayer = (turn - 1) % players.size();
+        int currentPlayer = turn;
         for(Player player : players) {
             System.out.printf(player.getName() + ": " + player.getPoints() + "\t");
         }
@@ -276,12 +276,12 @@ abstract class Board {
         System.out.print(players.get(currentPlayer).getLetters(6) + "\n\n");
         for (int j = 0; j < currentTiles.length; j++) {
             for (int i = 0; i < currentTiles[0].length; i++) {
-                if(currentTiles[i][j].isBlank()) {
-                    System.out.print(currentTiles[i][j].getLetter());
-                } else if (currentTiles[i][j].getLetter() == 0) {
+                if(currentTiles[j][i].isBlank()) {
+                    System.out.print(currentTiles[j][i].getLetter());
+                } else if (currentTiles[j][i].getLetter() == 0) {
                     System.out.print(Character.toString(0x2B1C));
                 } else {
-                    int unicodeEmoji = 0x1F1E5 + (currentTiles[i][j].getLetter() - 'A');
+                    int unicodeEmoji = 0x1F1E5 + (currentTiles[j][i].getLetter() - 'A');
                     System.out.print(Character.toString(unicodeEmoji));
                 }
             }
@@ -338,10 +338,17 @@ abstract class Board {
     public int wordPoints(int[] startPoint) {
         // TODO
     }
-    boolean hasTileChanged(int[] position) {
-        // TODO
+
+    /**
+     * Compares a tile on temporaryTiles to its counterpart on currentTiles
+     *
+     * @param pos Location of the tile
+     * @return Whether the tile has changed or not
+     */
+    boolean hasTileChanged(int[] pos) {
+        return temporaryTiles[pos[0]][pos[1]].getHeight() != currentTiles[pos[0]][pos[1]].getHeight();
     }
-    String letterPlacement(int[] position) {
+    void letterPlacement(int[] pos) {
         // TODO
     }
     boolean placementValidity() {
