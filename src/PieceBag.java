@@ -42,7 +42,7 @@ public class PieceBag {
         for (int i = 0; i < amount; i++) {
             pieces.add(piece);
         }
-        randomize();
+        //randomize();
     }
 
     /**
