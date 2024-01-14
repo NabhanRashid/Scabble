@@ -117,4 +117,9 @@ public class Player extends PieceBag {
     public void outOfGame() {
         inGame = false;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s: %d %s", name, points, (inGame) ? "Is in game" : "Is not in game");
+    }
 }

@@ -53,4 +53,9 @@ public class PieceBag {
     public int getSize() {
         return pieces.size();
     }
+
+    @Override
+    public String toString() {
+        return pieces.toString();
+    }
 }

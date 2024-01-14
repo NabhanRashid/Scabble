@@ -11,32 +11,32 @@ public class Board {
      * List of names for word files for the save info
      * This save info will work similar to the system used by git
      */
-    private final String[] wordFileNames;
+    public final String[] wordFileNames;
 
     /**
      * Stores the list of all valid words
      */
-    protected ArrayList<String> wordList;
+    public ArrayList<String> wordList;
     /**
      * Holds the current board of tiles
      */
-    protected Tile[][] currentTiles;
+    public Tile[][] currentTiles;
     /**
      * Holds an ArrayList of the players
      */
-    protected ArrayList<Player> players;
+    public ArrayList<Player> players;
     /**
      * Holds a temporary board for the current turn's play
      */
-    protected Tile[][] temporaryTiles;
+    public Tile[][] temporaryTiles;
     /**
      * Bag of pieces in use
      */
-    protected PieceBag bag;
+    public PieceBag bag;
     /**
      * Turn number
      */
-    protected int turn;
+    public int turn;
     /**
      * Holds a board of modifiers for the small tile board (11x11)
      *

@@ -82,4 +82,13 @@ public class Tile {
         this.isBlank = isBlank;
         height += 1;
     }
+
+    @Override
+    public String toString() {
+        if (letter == 0) {
+            return " ";
+        }
+
+        return String.format("%x%c%c", height, (isBlank) ? 'b' : ' ', letter);
+    }
 }
