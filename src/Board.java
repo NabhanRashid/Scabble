@@ -487,8 +487,7 @@ abstract class Board {
     boolean hasTileChanged(int[] pos) {
         return temporaryTiles[pos[0]][pos[1]].getHeight() != currentTiles[pos[0]][pos[1]].getHeight();
     }
-    void letterPlacement(int[] pos) {
-        // TODO
-    }
+    abstract void letterPlacement(int[] pos);
+
     abstract boolean placementValidity();
 }
