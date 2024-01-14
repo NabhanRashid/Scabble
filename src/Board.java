@@ -456,7 +456,16 @@ abstract class Board {
      * @return true if word is found, false if not
      */
     private boolean isValidWord(int[] startPoint, int[] endPoint) {
-        // TODO
+        String word = "";
+        int[] currentPosition = startPoint.clone();
+
+        while (currentPosition[0] != endPoint[0] || currentPosition[1] != endPoint[1]) {
+            word += temporaryTiles[currentPosition[0]][currentPosition[1]].getLetter();
+
+            currentPosition[0] += (endPoint[0] - currentPosition[0] == 0) ? 0 : 1;
+            currentPosition[1] += (endPoint[1] - currentPosition[1] == 0) ? 0 : 1;
+        }
+        return Collections.binarySearch(wordList, word) < 0;
     }
 
     /**
@@ -481,8 +490,5 @@ abstract class Board {
     void letterPlacement(int[] pos) {
         // TODO
     }
-    boolean placementValidity() {
-        // TODO
-    }
-
+    abstract boolean placementValidity();
 }
