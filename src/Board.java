@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class Board {
+abstract class Board {
 
     /**
      * List of names for word files for the save info
@@ -262,8 +262,8 @@ public class Board {
     }
 
     /**
-     * Manages the display for each player
-     * Outputs the following:
+     * Outputs the display for each player
+     * Prints the following:
      * All player points
      * Current hand of letters
      * Current board state, with emoji tiles
@@ -331,7 +331,9 @@ public class Board {
         return true;
     }
     public boolean placeWord(int[] startPos, int direction) {
-        // TODO
+        temporaryTiles = currentTiles;
+        int[] currentPos = startPos;
+        letterPlacement();
     }
     public int boardWordScan() {
         // TODO
