@@ -248,9 +248,6 @@ public class Board {
 
         Collections.sort(wordList);
 
-        // TODO
-
-
         // The turn starts at 0
         turn = 0;
     }
@@ -280,15 +277,35 @@ public class Board {
         }
     }
 
-    saveBoard(String filename): boolean
-+exchangeLetters()
-+skipTurn()
-+placeWord(startPos: int[], direction: int): boolean
-+boardWordScan(): int
-+isValidWord(word: String): boolean
-+wordPoints(startPos: int[]): int
-    hasTileChanged(position: int[]): boolean
-    letterPlacement(position: int[]): String
-    placementValidity(): boolean
+    public boolean saveBoard(String filename) {
+        // TODO
+    }
+    public void exchangeLetters() {
+        // TODO
+    }
+    public void skipTurn() {
+        // TODO
+    }
+    public boolean placeWord(int[] startPos, int direction) {
+        // TODO
+    }
+    public int boardWordScan() {
+        // TODO
+    }
+    private boolean isValidWord(String word) {
+        // TODO
+    }
+    public int wordPoints(int[] startPoint) {
+        // TODO
+    }
+    boolean hasTileChanged(int[] position) {
+        // TODO
+    }
+    String letterPlacement(int[] position) {
+        // TODO
+    }
+    boolean placementValidity() {
+        // TODO
+    }
 
 }
