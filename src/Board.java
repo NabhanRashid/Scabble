@@ -101,14 +101,6 @@ public class Board {
             {0,-3,0,0,2,0,2,0,0,-3,0,0,2,0,2,0,0,-3,0},
             {-3,0,0,3,0,0,0,3,0,-3,0,3,0,0,0,3,0,0,-3}};
 
-    public void display() {
-        for (int i = 0; i < players.size(); i++) {
-            System.out.printf(players.get(i).getName() + ": " + players.get(i).getPoints() + "\t");
-        }
-        System.out.println("\n\n");
-        System.out.println("Your letters: " );
-    }
-
     /**
      * The default number of each piece for a small sized board
      * Created using ([Area of small board]/[Area of medium board] * medCounts) with ceiling rounding (It's an about 0.5 ratio)
@@ -262,5 +254,41 @@ public class Board {
         // The turn starts at 0
         turn = 0;
     }
+
+    public void pieceBagCreation() {
+
+    }
+
+    /**
+     * Manages the display for the character
+     */
+    public void display() {
+        int currentPlayer = (turn - 1) % players.size();
+        for(Player player : players) {
+            System.out.printf(player.getName() + ": " + player.getPoints() + "\t");
+        }
+        System.out.print("\n\n\nYour letters: ");
+        for (int i = 0; i < 6; i++) {
+            System.out.print(players.get(currentPlayer).getLetters(i) + ", ");
+        }
+        System.out.print(players.get(currentPlayer).getLetters(6) + "\n\n");
+        for (int j = 0; j < currentTiles.length; j++) {
+            for (int i = 0; i < currentTiles[0].length; i++) {
+                if (currentTiles)
+                    System.out.println();
+            }
+        }
+    }
+
+    saveBoard(String filename): boolean
++exchangeLetters()
++skipTurn()
++placeWord(startPos: int[], direction: int): boolean
++boardWordScan(): int
++isValidWord(word: String): boolean
++wordPoints(startPos: int[]): int
+    hasTileChanged(position: int[]): boolean
+    letterPlacement(position: int[]): String
+    placementValidity(): boolean
 
 }

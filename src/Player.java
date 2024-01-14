@@ -47,6 +47,14 @@ public class Player extends PieceBag {
     }
 
     /**
+     * Gets the players amount of points
+     * @return points
+     */
+    public int getLetters(int index) {
+        return pieces.get(index);
+    }
+
+    /**
      * Adds points to the player's total
      * @param points amount to add
      */
