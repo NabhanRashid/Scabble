@@ -293,7 +293,17 @@ public class Board {
         }
     }
 
-    public boolean saveBoard(String filename) {
+    /**
+     * Saves the board to the given fileName
+     * @param fileName Name of file to save to
+     */
+    abstract public void saveBoard(String fileName);
+
+    /**
+     * Constructs board from a saveFile
+     * @param fileName Name of file to construct from
+     */
+    public Board(String fileName) {
         // TODO
     }
 
