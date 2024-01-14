@@ -318,10 +318,33 @@ abstract class Board {
         }
         return true;
     }
+
+    /**
+     *
+     * @param startPos
+     * @param direction
+     * @return
+     */
     public boolean placeWord(int[] startPos, int direction) {
+        Scanner input = new Scanner(System.in);
         temporaryTiles = currentTiles;
         int[] currentPos = startPos;
-        letterPlacement();
+        while (true) {
+            letterPlacement(currentPos);
+            // For direction, up is 0, right is 1, down is 2, left is 3
+            switch (direction) {
+                case 0 -> currentPos[1] += 1;
+                case 1 -> currentPos[0] += 1;
+                case 2 -> currentPos[1] -= 1;
+                case 3 -> currentPos[0] -= 1;
+            }
+            System.out.println("""
+                    Choose one of the following options:
+                    \tPlay another letter
+                    \tFinish word
+                    \tRestart word
+                    """);
+        }
     }
 
     /**

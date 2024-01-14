@@ -13,12 +13,14 @@ public class Main {
     public void playerTurn() {
         int input = 0;
         while (input < 1 || input > 4) {
-            System.out.printf("What would you like to do?\n" +
-                    "\t1. Place word\n" +
-                    "\t2. Exchange letters\n" +
-                    "\t3. Skip turn\n" +
-                    "\t4. Save game\n\n" +
-                    "Use numbers to choose an option.");
+            System.out.print("""
+                    What would you like to do?
+                    \t1. Place word
+                    \t2. Exchange letters
+                    \t3. Skip turn
+                    \t4. Save game
+
+                    Use numbers to choose an option.""");
             try {
                 input = Integer.parseInt(INPUT.nextLine());
             } catch (NumberFormatException e) {
