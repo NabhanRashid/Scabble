@@ -329,10 +329,15 @@ abstract class Board {
     }
 
     /**
+     * Allows the player to play a word on the board
+     * Player plays the word letter by letter using
+     * Checks if the word is properly placed, and if so counts the player's turn
+     * If there are no invalid words, tallies points and updates board
+     * If there are invalid words, keeps current board and ends turn
      *
-     * @param startPos
-     * @param direction
-     * @return
+     * @param startPos Starting coordinates
+     * @param direction Direction the word heads in
+     * @return Placement success
      */
     public boolean placeWord(int[] startPos, int direction) {
         Scanner input = new Scanner(System.in);
@@ -356,7 +361,7 @@ abstract class Board {
                     Choose one of the following options:
                     \tKeep playing word
                     \tFinish word
-                    \tRestart word
+                    \tRestart turn
                     """);
                 try {
                     option = Integer.parseInt(input.nextLine());
@@ -365,6 +370,7 @@ abstract class Board {
                         case 2:
                             placing = false;
                         case 3:
+                            System.out.println("Restarting turn");
                             return false;
                         default:
                             System.out.println("Not a valid option");
@@ -375,6 +381,19 @@ abstract class Board {
                 }
             }
         }
+        if (!placementValidity()) {
+            System.out.println("Word placement wasn't valid. Restarting turn");
+            return false;
+        }
+        if (boardWordScan() == -1) {
+            System.out.println("There are invalid word(s) in your placement. You do not receive any points");
+        } else {
+            System.out.println("Placement successful. Your play is worth " + boardWordScan() + " points");
+            players.get(turn).addPoints(boardWordScan());
+            currentTiles = temporaryTiles;
+        }
+        skipTurn();
+        return true;
     }
 
     /**
