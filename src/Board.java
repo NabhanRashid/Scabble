@@ -257,10 +257,6 @@ abstract class Board {
         }
     }
 
-    public void pieceBagCreation() {
-
-    }
-
     /**
      * Outputs the display for each player
      * Prints the following:
@@ -303,9 +299,7 @@ abstract class Board {
      * Constructs board from a saveFile
      * @param fileName Name of file to construct from
      */
-    public Board(String fileName) {
-        // TODO
-    }
+    abstract public Board(String fileName);
 
     /**
      * Exchange current player's pieces with pieces in the bag, and go to next player's turn
