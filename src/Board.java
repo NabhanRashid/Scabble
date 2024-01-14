@@ -1,5 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 
 public class Board {
 
@@ -7,7 +11,7 @@ public class Board {
      * List of names for word files for the save info
      * This save info will work similar to the system used by git
      */
-    private String[] wordFileNames;
+    private final String[] wordFileNames;
 
     /**
      * Stores the list of all valid words
@@ -179,6 +183,9 @@ public class Board {
         this.wordFileNames = wordFileNames.clone();
 
         // Addition of players with names
+
+        players = new ArrayList<>();
+
         for (String name : playerNames) {
             if (name.contains(",")) {
                 throw new InvalidParameterException("Do not include a name with a comma please");
@@ -220,10 +227,35 @@ public class Board {
                 case 1 -> bag.addPieces(' ', defaultMediumPieceCounts[26]);
                 case 2 -> bag.addPieces(' ', defaultBigPieceCounts[26]);
             }
+        } else {
+            bag.addPieces(' ', pieceBagCounts[26]);
         }
-        bag.addPieces(' ', pieceBagCounts[26]);
 
         // Creation of wordList
+
+        if (wordFileNames.length < 1) {
+            throw new InvalidParameterException("Must have at least one list of words");
+        }
+
+        wordList = new ArrayList<>();
+
+        for (String fileName : wordFileNames) {
+            File file = new File(fileName);
+
+            try {
+                Scanner fileReader = new Scanner(file);
+
+                while (fileReader.hasNextLine()) {
+                    wordList.add(fileReader.nextLine());
+                }
+
+            } catch (FileNotFoundException e) {
+                throw new InvalidParameterException("File " + file + " does not exist");
+            }
+        }
+
+        Collections.sort(wordList);
+
         // TODO
 
 
