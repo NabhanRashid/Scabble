@@ -250,6 +250,11 @@ public class Board {
 
         // The turn starts at 0
         turn = 0;
+
+        // Give players their pieces
+        for (Player player : players) {
+            player.exchangePieces(bag);
+        }
     }
 
     public void pieceBagCreation() {
@@ -291,11 +296,29 @@ public class Board {
     public boolean saveBoard(String filename) {
         // TODO
     }
+
+    /**
+     * Exchange current player's pieces with pieces in the bag, and go to next player's turn
+     */
     public void exchangeLetters() {
-        // TODO
+        players.get(turn).exchangePieces(bag);
+        skipTurn();
     }
-    public void skipTurn() {
-        // TODO
+
+    /**
+     * Go to the next player's turn, ensure that the player loops
+     * @return true if there is a player which must play, false if there isn't
+     */
+    public boolean skipTurn() {
+        int firstPlayer = turn;
+
+        while (!players.get(turn).isInGame()) {
+            turn += 1 % players.size();
+            if (firstPlayer == turn) {
+                return false;
+            }
+        }
+        return true;
     }
     public boolean placeWord(int[] startPos, int direction) {
         // TODO
