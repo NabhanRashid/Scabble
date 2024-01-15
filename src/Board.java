@@ -205,9 +205,9 @@ abstract class Board {
                     case 1 -> bag.addPieces((char) ('A' + i), defaultMediumPieceCounts[i]);
                     case 2 -> bag.addPieces((char) ('A' + i), defaultBigPieceCounts[i]);
                 }
+            } else {
+                bag.addPieces((char) ('A' + i), count);
             }
-
-            bag.addPieces((char) ('A' + i), count);
         }
 
         if (pieceBagCounts[26] < -1) {
@@ -481,7 +481,44 @@ abstract class Board {
      * @return points gotten from word, or 0 if the no letter in word has been placed on turn
      */
     public int wordPoints(int[] startPoint, int[] endPoint) {
-        // TODO
+        int wordsPoints = 0;
+
+        int wordMultiplier = 1;
+        int[] currentPosition = startPoint.clone();
+
+
+        while (currentPosition[0] != endPoint[0] || currentPosition[1] != endPoint[1]) {
+            int tilePoint = temporaryTiles[currentPosition[0]][currentPosition[1]].getPoint();
+
+            if (tilePoint == -1) {
+                throw new RuntimeException("The given range by wordPoints has a tile with nothing on it");
+            }
+
+            if (hasTileChanged(currentPosition)) {
+                int[][] boardForMultiplier;
+
+                switch (temporaryTiles.length) {
+                    case 11 -> boardForMultiplier = smallBoardMultipliers;
+                    case 15 -> boardForMultiplier = mediumBoardMultipliers;
+                    case 19 -> boardForMultiplier = largeBoardMultipliers;
+                    default -> throw new RuntimeException("Somehow the board doesn't have one of the preset lengths");
+                }
+                switch (boardForMultiplier[currentPosition[0]][currentPosition[1]]) {
+                    case 2 -> wordsPoints += tilePoint * 2;
+                    case 3 -> wordsPoints += tilePoint * 3;
+                    case -2 -> wordMultiplier *= 2;
+                    case -3 -> wordMultiplier *= 3;
+                    default -> wordsPoints += tilePoint;
+                }
+            } else {
+                wordsPoints += tilePoint;
+            }
+
+            currentPosition[0] += (endPoint[0] - currentPosition[0] == 0) ? 0 : 1;
+            currentPosition[1] += (endPoint[1] - currentPosition[1] == 0) ? 0 : 1;
+        }
+
+        return wordsPoints * wordMultiplier;
     }
 
     /**
