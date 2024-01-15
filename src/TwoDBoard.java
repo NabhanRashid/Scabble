@@ -1,3 +1,7 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.security.InvalidParameterException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class TwoDBoard extends Board {
@@ -13,9 +17,78 @@ public class TwoDBoard extends Board {
         super(boardSize, wordFileNames, playerNames, pieceBagCounts);
     }
 
+    public TwoDBoard(String fileName) {
+
+    }
+
+    /**
+     * Saves the game to a file in the 2D save type
+     * @param fileName Name of file to save to
+     */
     @Override
     public void saveBoard(String fileName) {
+        try {
+            FileWriter writer = new FileWriter(fileName, false);
 
+            String size;
+
+            switch (this.temporaryTiles.length) {
+                case 11 -> size = "0";
+                case 15 -> size = "1";
+                case 19 -> size = "2";
+                default -> throw new RuntimeException("Size of board is irregular");
+            }
+
+            writer.write("2D," + size + ",");
+
+            // Pseudo 2D array, simple entered row by row
+            for (int yPos = 0; yPos < currentTiles.length; yPos++) {
+                for (int xPos = 0; xPos < currentTiles.length; xPos++) {
+                    if (currentTiles[xPos][yPos].getHeight() == 0) {
+                        writer.write("-,");
+                    } else if (currentTiles[xPos][yPos].isBlank()) {
+                        writer.write(" " + currentTiles[xPos][yPos].getLetter() + ",");
+                    } else {
+                        writer.write(currentTiles[xPos][yPos].getLetter() + ",");
+                    }
+                }
+            }
+            writer.write("\n");
+
+            writer.write(players.size() + "\n");
+
+            for (Player p : players) {
+                writer.write(p.getName() + "," + p.pieces.size() + ",");
+
+                for (Character t : p.pieces) {
+                    writer.write(t + ",");
+                }
+
+                writer.write(p.getPoints() + ",");
+
+                if (p.isInGame()) {
+                    writer.write("t\n");
+                } else {
+                    writer.write("f\n");
+                }
+            }
+
+            // Pieces in bag, will have comma at end
+            for (Character t : bag.pieces) {
+                writer.write(t + ",");
+            }
+            writer.write("\n");
+
+            for (String name : wordFileNames) {
+                writer.write(name + ",");
+            }
+            writer.write("\n");
+
+            writer.write(turn + "\n");
+
+        } catch (IOException e) {
+            throw new InvalidParameterException("Had issues with file creation");
+        }
     }
 
     @Override

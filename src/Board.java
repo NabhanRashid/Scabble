@@ -11,7 +11,7 @@ abstract class Board {
      * List of names for word files for the save info
      * This save info will work similar to the system used by git
      */
-    private String[] wordFileNames;
+    protected String[] wordFileNames;
 
     /**
      * Stores the list of all valid words
@@ -140,6 +140,13 @@ abstract class Board {
     };
 
     /**
+     * Creates an empty board object
+     */
+    public Board() {
+
+    }
+
+    /**
      * Creates a board from given information by player, all other information will be filled by program
      * @param boardSize The size of the board, 0 is small, 1, is medium, 2 is large.
      * @param wordFileNames Name of files from which to compile the word list. Do note the official word list must be explicitly included
@@ -230,6 +237,7 @@ abstract class Board {
         }
 
         wordList = new ArrayList<>();
+        //hi :) -tai
 
         for (String fileName : wordFileNames) {
             File file = new File(fileName);
