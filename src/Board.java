@@ -347,24 +347,23 @@ abstract class Board {
      * If there are no invalid words, tallies points and updates board
      * If there are invalid words, keeps current board and ends turn
      *
-     * @param startPos Starting coordinates
+     * @param pos Starting coordinates
      * @param direction Direction the word heads in
      * @return Placement success
      */
-    public boolean placeWord(int[] startPos, int direction) {
+    public boolean placeWord(int[] pos, int direction) {
         Scanner input = new Scanner(System.in);
-        temporaryTiles = currentTiles;
-        int[] currentPos = startPos;
+        temporaryTiles = currentTiles.clone();
         int option = 0;
         boolean placing = true;
         while (placing) {
-            letterPlacement(currentPos);
+            letterPlacement(pos);
             // For direction, up is 0, right is 1, down is 2, left is 3
             switch (direction) {
-                case 0 -> currentPos[1] += 1;
-                case 1 -> currentPos[0] += 1;
-                case 2 -> currentPos[1] -= 1;
-                case 3 -> currentPos[0] -= 1;
+                case 0 -> pos[1] += 1;
+                case 1 -> pos[0] += 1;
+                case 2 -> pos[1] -= 1;
+                case 3 -> pos[0] -= 1;
             }
             option = 0;
             while (option == 0) {

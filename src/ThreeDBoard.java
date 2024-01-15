@@ -18,10 +18,17 @@ public class ThreeDBoard extends Board {
 
     }
 
+    /**
+     * Plays a letter in the specified tile
+     * If there are no letters there, asks for a letter to play
+     * If there is a letter there, asks whether to skip over the tile or play above it
+     *
+     * @param pos Position of tile being played on
+     */
     @Override
     public void letterPlacement(int[] pos) {
         Scanner input = new Scanner(System.in);
-        if (temporaryTiles[pos[0]][pos[1]].getLetter() == 0) {
+        if (temporaryTiles[pos[1]][pos[0]].getLetter() == 0) {
             System.out.println("What letter would you like to play?" +
                     "\nPut an underscore in front of the letter to use a blank");
             String letter;
@@ -34,7 +41,7 @@ public class ThreeDBoard extends Board {
                 }
                 if (letter.charAt(0) == '_') {
                     if (players.get(turn).tempUse(' ')) {
-                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(1), true);
+                        temporaryTiles[pos[1]][pos[0]].addPiece(letter.charAt(1), true);
                         System.out.println("Blank placed, representing the letter " + letter.charAt(1));
                         notPlaced = false;
                     } else {
@@ -42,7 +49,7 @@ public class ThreeDBoard extends Board {
                     }
                 } else {
                     if (players.get(turn).tempUse(letter.charAt(0))) {
-                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(0), true);
+                        temporaryTiles[pos[1]][pos[0]].addPiece(letter.charAt(0), true);
                         System.out.println("Letter " + letter.charAt(0) + " placed");
                         notPlaced = false;
                     } else {
@@ -54,7 +61,7 @@ public class ThreeDBoard extends Board {
             int choice = 0;
             while (choice == 0) {
                 try {
-                    System.out.println("The letter " + temporaryTiles[pos[0]][pos[1]].getLetter() + "is occupying this space already." +
+                    System.out.println("The letter " + temporaryTiles[pos[1]][pos[0]].getLetter() + "is occupying this space already." +
                             "\nChoose an option using the numbers:" +
                             "\n\t1. Play over it" +
                             "\n\t2. Leave it\n");
@@ -73,7 +80,7 @@ public class ThreeDBoard extends Board {
                                 }
                                 if (letter.charAt(0) == '_') {
                                     if (players.get(turn).tempUse(' ')) {
-                                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(1), true);
+                                        temporaryTiles[pos[1]][pos[0]].addPiece(letter.charAt(1), true);
                                         System.out.println("Blank placed, representing the letter " + letter.charAt(1));
                                         notPlaced = false;
                                     } else {
@@ -81,7 +88,7 @@ public class ThreeDBoard extends Board {
                                     }
                                 } else {
                                     if (players.get(turn).tempUse(letter.charAt(0))) {
-                                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(0), true);
+                                        temporaryTiles[pos[1]][pos[0]].addPiece(letter.charAt(0), true);
                                         System.out.println("Letter " + letter.charAt(0) + " placed");
                                         notPlaced = false;
                                     } else {
@@ -101,8 +108,41 @@ public class ThreeDBoard extends Board {
         }
     }
 
+    /**
+     * Checks if the placement is allowed
+     * The following conditions must be met
+     * One of the letters played is next to a previously played word
+     * The height difference is a maximum of 1 between adjacent letters
+     *
+     * @return If placement is valid
+     */
     @Override
     public boolean placementValidity() {
-        return false;
+        boolean adjacentTile = false;
+        for (int j = 0; j < currentTiles.length; j++) {
+            for (int i = 0; i < currentTiles[0].length; i++) {
+                if(hasTileChanged(new int[] {i, j})) {
+                    for (int m = -1; m < 2; m++) {
+                        try {
+                            if (currentTiles[i+m][j].getHeight() != 0) {
+                                adjacentTile = true;
+                                if (Math.abs(currentTiles[i+m][j].getHeight() - temporaryTiles[i][j].getHeight()) > 1) {
+                                    return false;
+                                }
+                            }
+                            if (currentTiles[i][j+m].getHeight() != 0) {
+                                adjacentTile = true;
+                                if (Math.abs(currentTiles[i][j+m].getHeight() - temporaryTiles[i][j].getHeight()) > 1) {
+                                    return false;
+                                }
+                            }
+                        } catch (ArrayIndexOutOfBoundsException ignored) {
+                        }
+                    }
+                }
+            }
+        }
+        return adjacentTile;
     }
 }
+
