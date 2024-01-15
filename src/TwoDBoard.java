@@ -18,6 +18,13 @@ public class TwoDBoard extends Board {
 
     }
 
+    /**
+     * Plays a letter in the specified tile
+     * If there are no letters there, asks for a letter to play
+     * If there is a letter there, skips over the tile
+     *
+     * @param pos Position of tile being played on
+     */
     @Override
     public void letterPlacement(int[] pos) {
         Scanner input = new Scanner(System.in);
@@ -56,8 +63,31 @@ public class TwoDBoard extends Board {
         }
     }
 
+    /**
+     * Checks if the placement is allowed
+     * If the letters played are next to a previously played word, it is valid
+     * Otherwise, it is invalid
+     *
+     * @return If placement is valid
+     */
     @Override
     public boolean placementValidity() {
+        for (int j = 0; j < currentTiles.length; j++) {
+            for (int i = 0; i < currentTiles[0].length; i++) {
+                if(hasTileChanged(new int[] {i, j})) {
+                    for (int m = -1; m < 2; m++) {
+                        for (int n = -1; n < 2; n++) {
+                            try {
+                                if (currentTiles[j+m][i+n].getHeight() != 0) {
+                                    return true;
+                                }
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return false;
     }
 }

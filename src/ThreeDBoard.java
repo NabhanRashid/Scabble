@@ -18,6 +18,13 @@ public class ThreeDBoard extends Board {
 
     }
 
+    /**
+     * Plays a letter in the specified tile
+     * If there are no letters there, asks for a letter to play
+     * If there is a letter there, asks whether to skip over the tile or play above it
+     *
+     * @param pos Position of tile being played on
+     */
     @Override
     public void letterPlacement(int[] pos) {
         Scanner input = new Scanner(System.in);
