@@ -82,7 +82,7 @@ public class TwoDBoard extends Board {
                             if (currentTiles[i][j+m].getHeight() != 0) {
                                 return true;
                             }
-                        } catch (ArrayIndexOutOfBoundsException e) {
+                        } catch (ArrayIndexOutOfBoundsException ignored) {
                         }
                     }
                 }

@@ -136,7 +136,7 @@ public class ThreeDBoard extends Board {
                                     return false;
                                 }
                             }
-                        } catch (ArrayIndexOutOfBoundsException e) {
+                        } catch (ArrayIndexOutOfBoundsException ignored) {
                         }
                     }
                 }
