@@ -28,7 +28,7 @@ public class TwoDBoard extends Board {
     @Override
     public void letterPlacement(int[] pos) {
         Scanner input = new Scanner(System.in);
-        if (temporaryTiles[pos[0]][pos[1]].getLetter() == 0) {
+        if (temporaryTiles[pos[1]][pos[0]].getLetter() == 0) {
             System.out.println("What letter would you like to play?" +
                     "\nPut an underscore in front of the letter to use a blank");
             String letter;
@@ -41,7 +41,7 @@ public class TwoDBoard extends Board {
                 }
                 if (letter.charAt(0) == '_') {
                     if (players.get(turn).tempUse(' ')) {
-                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(1), true);
+                        temporaryTiles[pos[1]][pos[0]].addPiece(letter.charAt(1), true);
                         System.out.println("Blank placed, representing the letter " + letter.charAt(1));
                         notPlaced = false;
                     } else {
@@ -49,7 +49,7 @@ public class TwoDBoard extends Board {
                     }
                 } else {
                     if (players.get(turn).tempUse(letter.charAt(0))) {
-                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(0), true);
+                        temporaryTiles[pos[1]][pos[0]].addPiece(letter.charAt(0), true);
                         System.out.println("Letter " + letter.charAt(0) + " placed");
                         notPlaced = false;
                     } else {
@@ -58,15 +58,14 @@ public class TwoDBoard extends Board {
                 }
             }
         } else {
-            System.out.println("The letter " + temporaryTiles[pos[0]][pos[1]].getLetter() + "is occupying this space already." +
+            System.out.println("The letter " + temporaryTiles[pos[1]][pos[0]].getLetter() + "is occupying this space already." +
                     "\nAs such, this placement will be skipped.");
         }
     }
 
     /**
      * Checks if the placement is allowed
-     * If the letters played are next to a previously played word, it is valid
-     * Otherwise, it is invalid
+     * This condition must be met: one of the letters played is next to a previously played word
      *
      * @return If placement is valid
      */
@@ -76,13 +75,14 @@ public class TwoDBoard extends Board {
             for (int i = 0; i < currentTiles[0].length; i++) {
                 if(hasTileChanged(new int[] {i, j})) {
                     for (int m = -1; m < 2; m++) {
-                        for (int n = -1; n < 2; n++) {
-                            try {
-                                if (currentTiles[j+m][i+n].getHeight() != 0) {
-                                    return true;
-                                }
-                            } catch (ArrayIndexOutOfBoundsException e) {
+                        try {
+                            if (currentTiles[i+m][j].getHeight() != 0) {
+                                return true;
                             }
+                            if (currentTiles[i][j+m].getHeight() != 0) {
+                                return true;
+                            }
+                        } catch (ArrayIndexOutOfBoundsException e) {
                         }
                     }
                 }
