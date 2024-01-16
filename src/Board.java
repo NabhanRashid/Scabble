@@ -313,6 +313,24 @@ abstract class Board {
     }
 
     /**
+     * Gets the current player and their info
+     *
+     * @return Current player
+     */
+    public Player currentPlayer() {
+        return players.get(turn);
+    }
+
+    /**
+     * Gets the size of the board
+     *
+     * @return Height/width of board
+     */
+    public int boardSize() {
+        return currentTiles.length;
+    }
+
+    /**
      * Saves the board to the given fileName
      * @param fileName Name of file to save to
      */
@@ -372,13 +390,20 @@ abstract class Board {
     public boolean skipTurn() {
         int firstPlayer = turn;
 
-        while (!players.get(turn).isInGame()) {
+         do {
             turn += 1 % players.size();
             if (firstPlayer == turn) {
                 return false;
             }
-        }
+        } while (!players.get(turn).isInGame());
         return true;
+    }
+
+    /**
+     * Takes the current player out of the game
+     */
+    public void giveUp() {
+        players.get(turn).outOfGame();
     }
 
     /**
@@ -423,6 +448,7 @@ abstract class Board {
                             placing = false;
                         case 3:
                             System.out.println("Restarting turn");
+                            players.get(turn).unsuccessfulPlay();
                             return false;
                         default:
                             System.out.println("Not a valid option");
@@ -435,6 +461,7 @@ abstract class Board {
         }
         if (!placementValidity()) {
             System.out.println("Word placement wasn't valid. Restarting turn");
+            players.get(turn).unsuccessfulPlay();
             return false;
         }
         if (boardWordScan() == -1) {
