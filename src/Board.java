@@ -320,6 +320,15 @@ abstract class Board {
     }
 
     /**
+     * Gets the size of the board
+     *
+     * @return Height/width of board
+     */
+    public int boardSize() {
+        return currentTiles.length;
+    }
+
+    /**
      * Saves the board to the given fileName
      * @param fileName Name of file to save to
      */
@@ -398,6 +407,7 @@ abstract class Board {
                             placing = false;
                         case 3:
                             System.out.println("Restarting turn");
+                            players.get(turn).unsuccessfulPlay();
                             return false;
                         default:
                             System.out.println("Not a valid option");
@@ -410,6 +420,7 @@ abstract class Board {
         }
         if (!placementValidity()) {
             System.out.println("Word placement wasn't valid. Restarting turn");
+            players.get(turn).unsuccessfulPlay();
             return false;
         }
         if (boardWordScan() == -1) {
