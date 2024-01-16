@@ -1,7 +1,12 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.InvalidParameterException;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class TwoDBoard extends Board {
@@ -17,8 +22,108 @@ public class TwoDBoard extends Board {
         super(boardSize, wordFileNames, playerNames, pieceBagCounts);
     }
 
+    /**
+     * Constructs a board from a save file
+     * @param fileName File from which save data is taken
+     */
     public TwoDBoard(String fileName) {
+        try {
+            Scanner reader = new Scanner(new File(fileName));
 
+            String[] firstLine = reader.nextLine().split(",");
+
+            // First Line
+            if (!firstLine[0].equals("2D")) {
+                throw new InvalidParameterException("File is not of a 2D game");
+            }
+
+            int size;
+
+            switch (Integer.parseInt(firstLine[1])) {
+                case 0:
+                    size = 11;
+                    break;
+                case 1:
+                    size = 15;
+                    break;
+                case 2:
+                    size = 19;
+                    break;
+                default:
+                    throw new InvalidParameterException("File does not contain a valid size");
+            }
+
+            this.currentTiles = new Tile[size][size];
+            this.temporaryTiles = new Tile[size][size];
+
+            for (int yPos = 0; yPos < size; yPos++) {
+                for (int xPos = 0; xPos < size; xPos++) {
+                    currentTiles[xPos][yPos] = new Tile();
+                    String tile = firstLine[yPos * size + xPos + 2];
+
+                    if (tile.charAt(0) == '-') {
+                        continue;
+                    }
+                    if (tile.charAt(0) == ' ') {
+                        currentTiles[xPos][yPos].addPiece(tile.charAt(1), true);
+                    } else {
+                        currentTiles[xPos][yPos].addPiece(tile.charAt(0), false);
+                    }
+                }
+            }
+
+            // Second & Third-X Lines
+            int numberOfPlayers = Integer.parseInt(reader.nextLine());
+
+            for (int i = 0; i < numberOfPlayers; i++) {
+                String[] currentPlayer = reader.nextLine().split(",");
+
+                Player currentPlayerObject = new Player(currentPlayer[0]);
+
+                int numberOfPieces = Integer.parseInt(currentPlayer[1]);
+
+                for (int piece = 0; piece < numberOfPieces; piece++) {
+                    currentPlayerObject.addPieces(currentPlayer[piece + 2].charAt(0), 1);
+                }
+
+                currentPlayerObject.addPoints(Integer.parseInt(currentPlayer[numberOfPieces + 2]));
+                if (currentPlayer[numberOfPieces + 3].equals("f")) {
+                    currentPlayerObject.outOfGame();
+                }
+            }
+
+            // Third Last Line
+            this.bag = new PieceBag();
+
+            String[] bagLine = reader.nextLine().split(",");
+
+            for (int i = 0; i < bagLine.length; i++) {
+                bag.addPieces(bagLine[i].charAt(0), 1);
+            }
+
+            wordFileNames = reader.nextLine().split(",");
+
+            for (String nameOfFile : wordFileNames) {
+                File file = new File(nameOfFile);
+
+                try {
+                    Scanner fileReader = new Scanner(file);
+
+                    while (fileReader.hasNextLine()) {
+                        wordList.add(fileReader.nextLine());
+                    }
+
+                } catch (FileNotFoundException e) {
+                    throw new InvalidParameterException("File " + file + " does not exist");
+                }
+            }
+            Collections.sort(wordList);
+
+            turn = Integer.parseInt(reader.nextLine());
+
+        } catch (IOException e) {
+            throw new InvalidParameterException("File could not be opened");
+        }
     }
 
     /**
@@ -85,6 +190,8 @@ public class TwoDBoard extends Board {
             writer.write("\n");
 
             writer.write(turn + "\n");
+
+            writer.close();
 
         } catch (IOException e) {
             throw new InvalidParameterException("Had issues with file creation");
