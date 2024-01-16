@@ -311,6 +311,15 @@ abstract class Board {
     }
 
     /**
+     * Gets the current player and their info
+     *
+     * @return Current player
+     */
+    public Player currentPlayer() {
+        return players.get(turn);
+    }
+
+    /**
      * Saves the board to the given fileName
      * @param fileName Name of file to save to
      */
@@ -331,12 +340,12 @@ abstract class Board {
     public boolean skipTurn() {
         int firstPlayer = turn;
 
-        while (!players.get(turn).isInGame()) {
+         do {
             turn += 1 % players.size();
             if (firstPlayer == turn) {
                 return false;
             }
-        }
+        } while (!players.get(turn).isInGame());
         return true;
     }
 

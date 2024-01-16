@@ -11,6 +11,8 @@ public class Main {
     }
 
     public void playerTurn() {
+        // clear the board somehow and print something to wait for enter
+        board.display();
         int input = 0;
         while (input < 1 || input > 4) {
             System.out.print("""
@@ -28,13 +30,20 @@ public class Main {
             }
             switch (input) {
                 case 1:
-                    board.;
+
+                    System.out.println();
+                    board.placeWord();
                 case 2:
-                    board.;
+                    board.exchangeLetters();
+
                 case 3:
-                    board.;
+                    if (board.skipTurn()) {
+                        System.out.println("Turn has been skipped");
+                    }
+
                 case 4:
-                    board.;
+                    System.out.println();
+                    board.saveBoard();
                 default:
                     System.out.println("Not a valid option. Please try again.");
             }
