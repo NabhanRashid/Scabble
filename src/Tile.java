@@ -82,4 +82,16 @@ public class Tile {
         this.isBlank = isBlank;
         height += 1;
     }
+
+    /**
+     * Adds onto the tile, but setting the height to a specified amount
+     * @param letter letter to set the tile to
+     * @param isBlank whether the tile is blank for points
+     * @param height the height to set the tile to
+     */
+    public void addPiece(char letter, boolean isBlank, int height) {
+        this.letter = letter;
+        this.isBlank = isBlank;
+        this.height = height;
+    }
 }
