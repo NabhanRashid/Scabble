@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.Reader;
+import java.security.InvalidParameterException;
 import java.util.Scanner;
 
 public class Main {
@@ -7,7 +8,27 @@ public class Main {
     public static final Scanner INPUT = new Scanner(System.in);
     public static Board board;
     public static void main(String[] args) {
-
+        System.out.println("Welcome to Scabble! :D\n");
+        System.out.println("Would you like to 1. start a new game or 2. load a previous game?");
+        System.out.println("Please enter your choice as a number below");
+        while (true) {
+            try {
+                int choice = Integer.parseInt(INPUT.nextLine());
+                if (choice == 1) {
+                    System.out.println("Starting a new game!\n");
+                    System.out.println("What size would you like your board to be?");
+                    // All other new game stuff
+                    break;
+                } else if (choice == 2) {
+                    System.out.println("Where is your file located? Please finish the file location below");
+                    System.out.print("Game_Files/");
+                    String fileName = INPUT.nextLine();
+                    board.loadBoard(FILE_PATH + fileName);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please input a valid number");
+            }
+        }
     }
 
     /**
@@ -106,7 +127,7 @@ public class Main {
                     try {
                         board.saveBoard(FILE_PATH + fileName);
                         System.out.println("File saved successfully!");
-                    } catch (RuntimeException) { //Needs error?
+                    } catch (RuntimeException f) { //Needs error?
                         System.out.println("We done goofed");
                     }
                 default:
