@@ -350,6 +350,13 @@ abstract class Board {
     }
 
     /**
+     * Takes the current player out of the game
+     */
+    public void giveUp() {
+        players.get(turn).outOfGame();
+    }
+
+    /**
      * Allows the player to play a word on the board
      * Player plays the word letter by letter using
      * Checks if the word is properly placed, and if so counts the player's turn
