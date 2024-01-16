@@ -121,6 +121,8 @@ public class TwoDBoard extends Board {
 
             turn = Integer.parseInt(reader.nextLine());
 
+            reader.close();
+
         } catch (IOException e) {
             throw new InvalidParameterException("File could not be opened");
         }
@@ -159,39 +161,8 @@ public class TwoDBoard extends Board {
                 }
             }
             writer.write("\n");
-
-            writer.write(players.size() + "\n");
-
-            for (Player p : players) {
-                writer.write(p.getName() + "," + p.pieces.size() + ",");
-
-                for (Character t : p.pieces) {
-                    writer.write(t + ",");
-                }
-
-                writer.write(p.getPoints() + ",");
-
-                if (p.isInGame()) {
-                    writer.write("t\n");
-                } else {
-                    writer.write("f\n");
-                }
-            }
-
-            // Pieces in bag, will have comma at end
-            for (Character t : bag.pieces) {
-                writer.write(t + ",");
-            }
-            writer.write("\n");
-
-            for (String name : wordFileNames) {
-                writer.write(name + ",");
-            }
-            writer.write("\n");
-
-            writer.write(turn + "\n");
-
             writer.close();
+            super.saveBoard(fileName);
 
         } catch (IOException e) {
             throw new InvalidParameterException("Had issues with file creation");

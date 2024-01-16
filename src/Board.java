@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -314,7 +316,46 @@ abstract class Board {
      * Saves the board to the given fileName
      * @param fileName Name of file to save to
      */
-    public abstract void saveBoard(String fileName);
+    public void saveBoard(String fileName) {
+        try {
+            FileWriter writer = new FileWriter(fileName, true);
+
+            writer.write(players.size() + "\n");
+
+            for (Player p : players) {
+                writer.write(p.getName() + "," + p.pieces.size() + ",");
+
+                for (Character t : p.pieces) {
+                    writer.write(t + ",");
+                }
+
+                writer.write(p.getPoints() + ",");
+
+                if (p.isInGame()) {
+                    writer.write("t\n");
+                } else {
+                    writer.write("f\n");
+                }
+            }
+
+            // Pieces in bag, will have comma at end
+            for (Character t : bag.pieces) {
+                writer.write(t + ",");
+            }
+            writer.write("\n");
+
+            for (String name : wordFileNames) {
+                writer.write(name + ",");
+            }
+            writer.write("\n");
+
+            writer.write(turn + "\n");
+
+            writer.close();
+        } catch (IOException e) {
+            throw new InvalidParameterException("Had issues with file creation");
+        }
+    }
 
     /**
      * Exchange current player's pieces with pieces in the bag, and go to next player's turn
