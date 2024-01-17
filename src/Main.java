@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.security.InvalidParameterException;
@@ -7,6 +8,38 @@ public class Main {
     public static final String FILE_PATH = "Game_Files/";
     public static final Scanner INPUT = new Scanner(System.in);
     public static Board board;
+
+    /**
+     * Prompts user until they give a valid input within range
+     * @param min Minimum number user can input (inclusive)
+     * @param max Maximum number user can input (inclusive)
+     * @return Valid number as int
+     */
+    public static int validIntegerInput(int min, int max) {
+        String input;
+        int inputNumber = -1;
+
+        boolean validInput;
+        do {
+            validInput = true;
+            input = INPUT.nextLine();
+            try {
+                inputNumber = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("That was not a valid input please try again");
+                validInput = false;
+                continue;
+            }
+            if (inputNumber < min || inputNumber > max) {
+                System.out.println("That was not one of the options");
+                validInput = false;
+            }
+
+        } while (!validInput);
+
+        return inputNumber;
+    }
+
     public static void main(String[] args) {
         System.out.println("Welcome to Scabble! :D\n");
         System.out.println("Would you like to 1. start a new game or 2. load a previous game?");
@@ -20,10 +53,36 @@ public class Main {
                     // All other new game stuff
                     break;
                 } else if (choice == 2) {
-                    System.out.println("Where is your file located? Please finish the file location below");
-                    System.out.print("Game_Files/");
-                    String fileName = INPUT.nextLine();
-                    board.loadBoard(FILE_PATH + fileName);
+                    boolean givenValidFilePath;
+
+                    do {
+                        givenValidFilePath = true;
+                        System.out.println("Where is your file located? Please finish the file location below");
+                        System.out.print("Game_Files/");
+                        String fileName = FILE_PATH + INPUT.nextLine();
+
+                        try {
+                            Scanner fileReader = new Scanner(new File(fileName));
+
+                            // Get the first argument, should be "2D" or "3D"
+                            String gameType = fileReader.nextLine().split(",")[0];
+
+                            if (gameType.equals("2D")) {
+                                board = new TwoDBoard(fileName);
+                            } else if (gameType.equals("3D")) {
+                                board = new ThreeDBoard(fileName);
+                            } else {
+                                System.out.println("The file found at " + fileName + "Did not lead to a game file");
+                                System.out.println("Please try again");
+                                givenValidFilePath = false;
+                            }
+
+                        } catch (IOException e) {
+                            System.out.println("The file path " + fileName + "Did not lead to a game file");
+                            System.out.println("Please try again");
+                            givenValidFilePath = false;
+                        }
+                    } while (!givenValidFilePath);
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Please input a valid number");
