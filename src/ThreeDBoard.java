@@ -24,6 +24,8 @@ public class ThreeDBoard extends Board {
      * @param fileName Name of file to take save data from
      */
     public ThreeDBoard(String fileName) {
+        super(fileName);
+
         try {
             Scanner reader = new Scanner(new File(fileName));
 
@@ -69,55 +71,6 @@ public class ThreeDBoard extends Board {
                     }
                 }
             }
-
-            // Second & Third-X Lines
-            int numberOfPlayers = Integer.parseInt(reader.nextLine());
-
-            for (int i = 0; i < numberOfPlayers; i++) {
-                String[] currentPlayer = reader.nextLine().split(",");
-
-                Player currentPlayerObject = new Player(currentPlayer[0]);
-
-                int numberOfPieces = Integer.parseInt(currentPlayer[1]);
-
-                for (int piece = 0; piece < numberOfPieces; piece++) {
-                    currentPlayerObject.addPieces(currentPlayer[piece + 2].charAt(0), 1);
-                }
-
-                currentPlayerObject.addPoints(Integer.parseInt(currentPlayer[numberOfPieces + 2]));
-                if (currentPlayer[numberOfPieces + 3].equals("f")) {
-                    currentPlayerObject.outOfGame();
-                }
-            }
-
-            // Third Last Line
-            this.bag = new PieceBag();
-
-            String[] bagLine = reader.nextLine().split(",");
-
-            for (int i = 0; i < bagLine.length; i++) {
-                bag.addPieces(bagLine[i].charAt(0), 1);
-            }
-
-            wordFileNames = reader.nextLine().split(",");
-
-            for (String nameOfFile : wordFileNames) {
-                File file = new File(nameOfFile);
-
-                try {
-                    Scanner fileReader = new Scanner(file);
-
-                    while (fileReader.hasNextLine()) {
-                        wordList.add(fileReader.nextLine());
-                    }
-
-                } catch (FileNotFoundException e) {
-                    throw new InvalidParameterException("File " + file + " does not exist");
-                }
-            }
-            Collections.sort(wordList);
-
-            turn = Integer.parseInt(reader.nextLine());
 
             reader.close();
 
