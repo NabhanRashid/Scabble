@@ -44,50 +44,73 @@ public class Main {
         System.out.println("Welcome to Scabble! :D\n");
         System.out.println("Would you like to 1. start a new game or 2. load a previous game?");
         System.out.println("Please enter your choice as a number below");
-        while (true) {
-            try {
-                int choice = Integer.parseInt(INPUT.nextLine());
-                if (choice == 1) {
-                    System.out.println("Starting a new game!\n");
-                    System.out.println("What size would you like your board to be?");
-                    // All other new game stuff
-                    break;
-                } else if (choice == 2) {
-                    boolean givenValidFilePath;
 
-                    do {
-                        givenValidFilePath = true;
-                        System.out.println("Where is your file located? Please finish the file location below");
-                        System.out.print("Game_Files/");
-                        String fileName = FILE_PATH + INPUT.nextLine();
+        int choice = validIntegerInput(1, 2);
 
-                        try {
-                            Scanner fileReader = new Scanner(new File(fileName));
+        if (choice == 1) {
+            System.out.println("Starting a new game!\n");
+            System.out.println("What type of game would you like?");
+            System.out.println("Your possible game types are:");
+            System.out.println(
+                    """
+                            \t1: Two Dimensional Scrabble (The original)
+                            \t2: Three Dimensional Scrabble (The remastered)"""
+            );
+            int boardType = validIntegerInput(1, 2);
 
-                            // Get the first argument, should be "2D" or "3D"
-                            String gameType = fileReader.nextLine().split(",")[0];
+            System.out.println("What size would you like your board to be?");
+            System.out.println("Your possible sizes are: ");
+            System.out.println(
+                    """
+                            \t1: Small
+                            \t2: Medium
+                            \t3: Large"""
+            );
+            int boardSize = validIntegerInput(1, 3) - 1;
 
-                            if (gameType.equals("2D")) {
-                                board = new TwoDBoard(fileName);
-                            } else if (gameType.equals("3D")) {
-                                board = new ThreeDBoard(fileName);
-                            } else {
-                                System.out.println("The file found at " + fileName + "Did not lead to a game file");
-                                System.out.println("Please try again");
-                                givenValidFilePath = false;
-                            }
+            // TODO The rest of the Board Construction variables
 
-                        } catch (IOException e) {
-                            System.out.println("The file path " + fileName + "Did not lead to a game file");
-                            System.out.println("Please try again");
-                            givenValidFilePath = false;
-                        }
-                    } while (!givenValidFilePath);
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Please input a valid number");
+            if (boardType == 1) {
+                board = new TwoDBoard(boardSize, wordFileNames, playerNames, pieceBagCounts);
+            } else if (boardType == 2) {
+                board = new ThreeDBoard(boardSize, wordFileNames, playerNames, pieceBagCounts);
             }
+
+        // Creation of a game from a saveFile
+        } else if (choice == 2) {
+            boolean givenValidFilePath;
+
+            do {
+                givenValidFilePath = true;
+                System.out.println("Where is your file located? Please finish the file location below");
+                System.out.print("Game_Files/");
+                String fileName = FILE_PATH + INPUT.nextLine();
+
+                try {
+                    Scanner fileReader = new Scanner(new File(fileName));
+
+                    // Get the first argument, should be "2D" or "3D"
+                    String gameType = fileReader.nextLine().split(",")[0];
+
+                    if (gameType.equals("2D")) {
+                        board = new TwoDBoard(fileName);
+                    } else if (gameType.equals("3D")) {
+                        board = new ThreeDBoard(fileName);
+                    } else {
+                        System.out.println("The file found at " + fileName + "Did not lead to a game file");
+                        System.out.println("Please try again");
+                        givenValidFilePath = false;
+                    }
+
+                } catch (IOException e) {
+                    System.out.println("The file path " + fileName + "Did not lead to a game file");
+                    System.out.println("Please try again");
+                    givenValidFilePath = false;
+                }
+            } while (!givenValidFilePath);
         }
+
+
     }
 
     /**
@@ -97,7 +120,7 @@ public class Main {
      * For saveBoard, fetches the file name to be saved under
      */
     public void playerTurn() {
-        // clear the board somehow
+        // TODO clear the board somehow
         System.out.println("It is now " + board.currentPlayer().getName() + "'s turn. Press enter to continue.");
         INPUT.nextLine();
         int input = 0;

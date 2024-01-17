@@ -267,6 +267,10 @@ abstract class Board {
         }
     }
 
+    /**
+     * Constructs everything in the game not including the board itself from a save file
+     * @param fileName file from which to construct
+     */
     public Board(String fileName) {
         try {
 
