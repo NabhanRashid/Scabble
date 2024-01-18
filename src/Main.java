@@ -98,16 +98,16 @@ public class Main {
 
                 fileName = INPUT.nextLine();
 
-                if (!(new File(SAVE_FILE_PATH + fileName)).exists()) {
+                if (!(new File(WORD_FILE_PATH + fileName)).exists()) {
                     System.out.println("Please add a file that exists within the Word_List_Files directory");
                     continue;
                 }
 
-                wordFileNames.add(SAVE_FILE_PATH + fileName);
+                wordFileNames.add(WORD_FILE_PATH + fileName);
 
             } while (!fileName.equalsIgnoreCase("no more"));
             // Removing the extraneous "no more"
-            wordFileNames.removeLast();
+            wordFileNames.remove(wordFileNames.size() - 1);
 
             System.out.println("Please let each player add their name (Type \"No More\" to stop)");
             System.out.print("We recommend up to ");
@@ -134,7 +134,7 @@ public class Main {
 
             } while (!playerName.equalsIgnoreCase("no more"));
             // Removing extraneous "no more"
-            playerNames.removeLast();
+            playerNames.remove(playerNames.size() - 1);
 
             System.out.println("Would you like the default number of pieces in the bag? (y/n)");
             int[] pieceBagCounts = new int[27];
@@ -195,7 +195,7 @@ public class Main {
                 givenValidFilePath = true;
                 System.out.println("Where is your file located? Please finish the file location below");
                 System.out.print("Game_Files/");
-                String fileName = FILE_PATH + INPUT.nextLine();
+                String fileName = SAVE_FILE_PATH + INPUT.nextLine();
 
                 try {
                     Scanner fileReader = new Scanner(new File(fileName));
