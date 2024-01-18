@@ -231,7 +231,9 @@ public class Main {
      * For saveBoard, fetches the file name to be saved under
      */
     public void playerTurn() {
-        // TODO clear the board somehow
+        for (int i = 0; i < 100; i++) {
+            System.out.println();
+        }
         System.out.println("It is now " + board.currentPlayer().getName() + "'s turn. Press enter to continue.");
         INPUT.nextLine();
         int input = 0;
