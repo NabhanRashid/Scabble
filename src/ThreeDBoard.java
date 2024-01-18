@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -15,7 +16,7 @@ public class ThreeDBoard extends Board {
      * @param playerNames    Name of players, the number of players is implicitly included
      * @param pieceBagCounts The count of each piece, (e.g : 1 A, 5 B, 100 C...), -1 will take the default given by the board. 27 values A-Z plus blank count
      */
-    public ThreeDBoard(int boardSize, String[] wordFileNames, String[] playerNames, int[] pieceBagCounts) {
+    public ThreeDBoard(int boardSize, ArrayList<String> wordFileNames, ArrayList<String> playerNames, int[] pieceBagCounts) {
         super(boardSize, wordFileNames, playerNames, pieceBagCounts);
     }
 

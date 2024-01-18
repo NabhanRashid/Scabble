@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ abstract class Board {
      * List of names for word files for the save info
      * This save info will work similar to the system used by git
      */
-    protected String[] wordFileNames;
+    protected ArrayList<String> wordFileNames;
 
     /**
      * Stores the list of all valid words
@@ -107,7 +108,7 @@ abstract class Board {
      * The default number of each piece for a small sized board
      * Created using ([Area of small board]/[Area of medium board] * medCounts) with ceiling rounding (It's an about 0.5 ratio)
      */
-    private static final int[] defaultSmallPieceCounts = {
+    public static final int[] defaultSmallPieceCounts = {
             5, 1, 1, 2, 6, // A B C D E
             1, 2, 1, 5, 1, // F G H I J
             1, 2, 1, 3, 4, // K L M N O
@@ -119,7 +120,7 @@ abstract class Board {
     /**
      * The default number of each piece for a medium sized board
      */
-    private static final int[] defaultMediumPieceCounts = {
+    public static final int[] defaultMediumPieceCounts = {
             9, 2, 2, 4, 12, // A B C D E
             2, 3, 2, 9, 1, // F G H I J
             1, 4, 2, 6, 8, // K L M N O
@@ -132,7 +133,7 @@ abstract class Board {
      * The default number of each piece for a big sized board
      * Created using ([Area of big board]/[Area of medium board] * medCounts) with ceiling rounding (It's about 1.6 ratio)
      */
-    private static final int[] defaultBigPieceCounts = {
+    public static final int[] defaultBigPieceCounts = {
             15, 4, 4, 7, 20, // A B C D E
             4, 5, 4, 15, 2, // F G H I J
             2, 7, 4, 10, 13, // K L M N O
@@ -155,7 +156,7 @@ abstract class Board {
      * @param playerNames Name of players, the number of players is implicitly included
      * @param pieceBagCounts The count of each piece, (e.g : 1 A, 5 B, 100 C...), -1 will take the default given by the board. 27 values A-Z plus blank count
      */
-    public Board(int boardSize, String[] wordFileNames, String[] playerNames, int[] pieceBagCounts) {
+    public Board(int boardSize, ArrayList<String> wordFileNames, ArrayList<String> playerNames, int[] pieceBagCounts) {
         // Initialization of the tileBoard
         switch (boardSize) {
             case 0 -> {
@@ -181,7 +182,7 @@ abstract class Board {
         }
 
         // Definition of wordFiles to be used
-        this.wordFileNames = wordFileNames.clone();
+        this.wordFileNames =  wordFileNames;
 
         // Addition of players with names
 
@@ -234,7 +235,7 @@ abstract class Board {
 
         // Creation of wordList
 
-        if (wordFileNames.length < 1) {
+        if (wordFileNames.isEmpty()) {
             throw new InvalidParameterException("Must have at least one list of words");
         }
 
@@ -307,7 +308,9 @@ abstract class Board {
                 bag.addPieces(bagLine[i].charAt(0), 1);
             }
 
-            wordFileNames = reader.nextLine().split(",");
+            for (String wordFileName : reader.nextLine().split(",")) {
+                wordFileNames.add(wordFileName);
+            }
 
             for (String nameOfFile : wordFileNames) {
                 File file = new File(nameOfFile);
