@@ -347,11 +347,6 @@ abstract class Board {
         for(Player player : players) {
             System.out.printf(player.getName() + ": " + player.getPoints() + "\t");
         }
-        System.out.print("\n\n\nYour letters: ");
-        for (int i = 0; i < 6; i++) {
-            System.out.print(players.get(turn).getLetters(i) + ", ");
-        }
-        System.out.print(players.get(turn).getLetters(6) + "\n\n");
         printTiles(currentTiles);
     }
 
@@ -362,17 +357,22 @@ abstract class Board {
      */
     public void printTiles(Tile[][] board) {
         System.out.print("\n\n\nYour letters: ");
-        for (int i = 0; i < 6; i++) {
-            System.out.print(players.get(turn).getLetters(i) + ", ");
+        for (int i = 0; i < players.get(turn).getSize(); i++) {
+            if (i == players.get(turn).getSize() - 1) {
+                System.out.print(players.get(turn).getLetters(i) + "\n\n");
+            } else {
+                System.out.print(players.get(turn).getLetters(i) + ", ");
+            }
         }
-        System.out.print(players.get(turn).getLetters(6) + "\n\n");
         for (int j = 0; j < board.length; j++) {
             for (int i = 0; i < board[0].length; i++) {
                 if(board[j][i].isBlank()) {
                     System.out.print(board[j][i].getLetter());
                 } else if (board[j][i].getLetter() == 0) {
+                    // The unicode for a blank space
                     System.out.print(Character.toString(0x2B1C));
                 } else {
+                    // The unicode is for the A emoji letter
                     int unicodeEmoji = 0x1F1E5 + (board[j][i].getLetter() - 'A');
                     System.out.print(Character.toString(unicodeEmoji));
                 }
@@ -453,7 +453,7 @@ abstract class Board {
     }
 
     /**
-     * Go to the next player's turn, ensure that the player loops
+     * Go to the next player's turn, ensure that the player pattern loops
      * @return true if there is a player which must play, false if there isn't
      */
     public boolean skipTurn() {
@@ -466,6 +466,36 @@ abstract class Board {
             }
         } while (!players.get(turn).isInGame());
         return true;
+    }
+
+    /**
+     * Returns false if there are still any players that can go
+     *
+     * @return if the game has ended
+     */
+    public boolean endOfGame() {
+        for (Player player: players) {
+            if (player.isInGame()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String[] winningPlayers() {
+        Player winner = players.get(0);
+        ArrayList<String> winnerNames = new ArrayList<>();
+        winnerNames.add(players.get(0).getName());
+        for (Player player: players) {
+            if (player.getPoints() > winner.getPoints()) {
+                winnerNames.clear();
+                winner = player;
+                winnerNames.add(winner.getName());
+            } else if (player.getPoints() == winner.getPoints()) {
+                winnerNames.add(player.getName());
+            }
+        }
+        return (String[]) winnerNames.toArray();
     }
 
     /**
