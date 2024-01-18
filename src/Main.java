@@ -231,8 +231,32 @@ public class Main {
                 }
             } while (!givenValidFilePath);
         }
-
-
+        boolean playable = true;
+        while (playable) {
+            playerTurn();
+            if (board.endOfGame()) {
+                System.out.println("You have reached the end of the game!");
+                System.out.println("This is what the final board looks like: ");
+                board.display();
+                String[] winners = board.winningPlayers();
+                if (winners.length == 1) {
+                    System.out.println("\n Player " + winners[0] + " wins! Congratulations!");
+                } else {
+                    System.out.print("\n Players ");
+                    for (int i = 0; i < winners.length; i++) {
+                        if (i == winners.length - 1) {
+                            System.out.print(winners[i]);
+                        } else {
+                            System.out.print(winners[i] + " and ");
+                        }
+                    }
+                    System.out.println(" win! Congratulations!");
+                }
+                System.out.println("Ending game now...");
+                playable = false;
+            }
+        }
+        System.out.println("Thank you for playing Scabble!");
     }
 
     /**
@@ -241,7 +265,7 @@ public class Main {
      * For placeWord, fetches the starting position and direction
      * For saveBoard, fetches the file name to be saved under
      */
-    public void playerTurn() {
+    public static void playerTurn() {
         for (int i = 0; i < 100; i++) {
             System.out.println();
         }
@@ -256,7 +280,7 @@ public class Main {
                     \t2. Exchange letters
                     \t3. Skip turn
                     \t4. Give up
-                    \t5. Save game
+                    \t5. Save game and exit
 
                     Use numbers to choose an option.""");
             try {
