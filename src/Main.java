@@ -1,8 +1,5 @@
 import java.io.File;
 import java.io.IOException;
-import java.io.Reader;
-import java.lang.reflect.Array;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,6 +19,7 @@ public class Main {
      */
     public static String validInput(int min, int max, String characters) {
         String input;
+        // This is necessary cause of java not knowing it's impossible to be uninitialized.
         int inputNumber = -1;
 
         boolean validInput;
@@ -53,8 +51,21 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        System.out.println("""
+                 .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  \s
+                | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. | \s
+                | |    _______   | || |     ______   | || |      __      | || |   ______     | || |   ______     | || |   _____      | || |  _________   | | \s
+                | |   /  ___  |  | || |   .' ___  |  | || |     /  \\     | || |  |_   _ \\    | || |  |_   _ \\    | || |  |_   _|     | || | |_   ___  |  | | \s
+                | |  |  (__ \\_|  | || |  / .'   \\_|  | || |    / /\\ \\    | || |    | |_) |   | || |    | |_) |   | || |    | |       | || |   | |_  \\_|  | | \s
+                | |   '.___`-.   | || |  | |         | || |   / ____ \\   | || |    |  __'.   | || |    |  __'.   | || |    | |   _   | || |   |  _|  _   | | \s
+                | |  |`\\____) |  | || |  \\ `.___.'\\  | || | _/ /    \\ \\_ | || |   _| |__) |  | || |   _| |__) |  | || |   _| |__/ |  | || |  _| |___/ |  | | \s
+                | |  |_______.'  | || |   `._____.'  | || ||____|  |____|| || |  |_______/   | || |  |_______/   | || |  |________|  | || | |_________|  | | \s
+                | |              | || |              | || |              | || |              | || |              | || |              | || |              | | \s
+                | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' | \s
+                 '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  \s""");
+
         System.out.println("Welcome to Scabble! :D\n");
-        System.out.println("Would you like to 1. start a new game or 2. load a previous game?");
+        System.out.println("Would you like to\n 1: start a new game\n 2: load a previous game?");
         System.out.println("Please enter your choice as a number below");
 
         int choice = Integer.parseInt(validInput(1, 2, ""));
@@ -301,8 +312,7 @@ public class Main {
                             System.out.println("Please input a valid number");
                         }
                     }
-                    if (board.placeWord(pos, direction)) {
-                    } else {
+                    if (!board.placeWord(pos, direction)) {
                         input = 0;
                     }
                 case 2:
