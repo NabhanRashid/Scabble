@@ -233,7 +233,10 @@ public class Main {
         }
         boolean playable = true;
         while (playable) {
-            playerTurn();
+            if (!playerTurn()) {
+                System.out.println("Exiting now...");
+                playable = false;
+            }
             if (board.endOfGame()) {
                 System.out.println("You have reached the end of the game!");
                 System.out.println("This is what the final board looks like: ");
@@ -265,7 +268,7 @@ public class Main {
      * For placeWord, fetches the starting position and direction
      * For saveBoard, fetches the file name to be saved under
      */
-    public static void playerTurn() {
+    public static boolean playerTurn() {
         for (int i = 0; i < 100; i++) {
             System.out.println();
         }
@@ -356,6 +359,7 @@ public class Main {
                     try {
                         board.saveBoard(FILE_PATH + fileName);
                         System.out.println("File saved successfully!");
+                        return false;
                     } catch (RuntimeException f) { //Needs error?
                         System.out.println("We done goofed");
                     }
@@ -366,5 +370,6 @@ public class Main {
                 board.giveUp();
             }
         }
+        return true;
     }
 }
