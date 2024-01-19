@@ -11,7 +11,7 @@ public class PieceBag {
      * Instantiation for PieceBag that initializes the ArrayList
      */
     public PieceBag() {
-        pieces = new ArrayList<Character>();
+        pieces = new ArrayList<>();
     }
 
     /**
@@ -27,7 +27,7 @@ public class PieceBag {
      * @return piece
      */
     public char takePiece() {
-        char piece = (char) pieces.get(0);
+        char piece = pieces.get(0);
         try {
             pieces.remove(0);
         } catch (IndexOutOfBoundsException e) {
@@ -37,7 +37,7 @@ public class PieceBag {
     }
 
     /**
-     * Adds pieces to the bag, randomizing afterwards
+     * Adds pieces to the bag, randomizing afterward
      *
      * @param piece character to be added, a blank is a space
      * @param amount how many of that character to be added
