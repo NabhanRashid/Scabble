@@ -59,15 +59,18 @@ public class ThreeDBoard extends Board {
             for (int yPos = 0; yPos < size; yPos++) {
                 for (int xPos = 0; xPos < size; xPos++) {
                     currentTiles[xPos][yPos] = new Tile();
+                    temporaryTiles[xPos][yPos] = new Tile();
                     String tile = firstLine[yPos * size + xPos + 2];
                     int height = Integer.parseInt(tile.substring(1, tile.length() - 1));
 
                     if (tile.charAt(0) == ' ') {
 
                         for (int i = 0; i < height; i++) {
+                            temporaryTiles[xPos][yPos].addPiece(tile.charAt(tile.length() - 1), true, height);
                             currentTiles[xPos][yPos].addPiece(tile.charAt(tile.length() - 1), true, height);
                         }
                     } else {
+                        temporaryTiles[xPos][yPos].addPiece(tile.charAt(tile.length() - 1), false, height);
                         currentTiles[xPos][yPos].addPiece(tile.charAt(0), false, height);
                     }
                 }
@@ -150,7 +153,7 @@ public class ThreeDBoard extends Board {
                     }
                 } else {
                     if (players.get(turn).tempUse(letter.charAt(0))) {
-                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(0), true);
+                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(0), false);
                         System.out.println("Letter " + letter.charAt(0) + " placed");
                         notPlaced = false;
                     } else {
@@ -197,7 +200,9 @@ public class ThreeDBoard extends Board {
                                     }
                                 }
                             }
+                            break;
                         case 2:
+                            break;
                         default:
                             System.out.println("Not a valid option.");
                             choice = 0;
@@ -219,6 +224,10 @@ public class ThreeDBoard extends Board {
      */
     @Override
     public boolean placementValidity() {
+        if (isFirstTurn()) {
+            return true;
+        }
+
         boolean adjacentTile = false;
         for (int j = 0; j < currentTiles.length; j++) {
             for (int i = 0; i < currentTiles[0].length; i++) {

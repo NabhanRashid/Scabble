@@ -293,6 +293,7 @@ abstract class Board {
                 for (int piece = 0; piece < numberOfPieces; piece++) {
                     currentPlayerObject.addPieces(currentPlayer[piece + 2].charAt(0), 1);
                 }
+                currentPlayerObject.sort();
 
                 currentPlayerObject.addPoints(Integer.parseInt(currentPlayer[numberOfPieces + 2]));
                 if (currentPlayer[numberOfPieces + 3].equals("f")) {
@@ -438,7 +439,7 @@ abstract class Board {
                     }
                 } else {
                     // The unicode is for the A emoji letter
-                    int unicodeEmoji = 0x1F1E5 + (board[x][y].getLetter() - 'A');
+                    int unicodeEmoji = 0x1F170 + (board[x][y].getLetter() - 'A');
                     System.out.print(Character.toString(unicodeEmoji));
                 }
             }
@@ -448,32 +449,10 @@ abstract class Board {
 
     /**
      * Checks if the middle tile is occupied after the first turn
-     * @return true if middle tile is occupied
+     * @return true if middle tile is unoccupied
      */
     public boolean isFirstTurn() {
-        switch (boardSize()) {
-            case 11:
-                if (currentTiles[5][5].getHeight() == 0) {
-                    return false;
-                } else {
-                    return true;
-                }
-            case 15:
-                if (currentTiles[7][7].getHeight() == 0) {
-                    return false;
-                } else {
-                    return true;
-                }
-            case 19:
-                if (currentTiles[9][9].getHeight() == 0) {
-                    return false;
-                } else {
-                    return true;
-                }
-            default:
-                System.out.println("Error");
-                return false;
-        }
+        return currentTiles[boardSize() / 2][boardSize() / 2].getHeight() == 0;
     }
 
     /**
@@ -638,6 +617,7 @@ abstract class Board {
                     option = Integer.parseInt(input.nextLine());
                     switch (option) {
                         case 1:
+                            break;
                         case 2:
                             if (isFirstTurn()) {
                                 if (temporaryTiles[temporaryTiles.length / 2][temporaryTiles.length / 2].getHeight() == -1) {
@@ -646,6 +626,7 @@ abstract class Board {
                                 }
                             }
                             placing = false;
+                            break;
                         case 3:
                             System.out.println("Restarting turn");
                             players.get(turn).unsuccessfulPlay();

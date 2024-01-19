@@ -344,7 +344,7 @@ public class Main {
                     \t4. Give up
                     \t5. Save game and exit
 
-                    Use numbers to choose an option.""");
+                    """);
             try {
                 input = Integer.parseInt(INPUT.nextLine());
             } catch (NumberFormatException e) {
@@ -356,10 +356,12 @@ public class Main {
                     int[] pos = new int[2];
                     int direction;
                     System.out.println("Where would you like to start?");
+
                     if (board.isFirstTurn()) {
                         System.out.println("It is the first turn, so remember to place at least one piece on the" +
                                 " center tile");
                     }
+
                     System.out.println("Enter the column number (1 is the leftmost column)");
                     while (true) {
                         try {
@@ -405,17 +407,21 @@ public class Main {
                     if (!board.placeWord(pos, direction)) {
                         input = 0;
                     }
+                    break;
                 case 2:
                     board.exchangeLetters();
                     System.out.println("Letters successfully exchanged");
+                    break;
                 case 3:
                     if (board.skipTurn()) {
                         System.out.println("Turn has been skipped");
                     } else {
                         System.out.println("No other players can play. Go again.");
                     }
+                    break;
                 case 4:
                     board.giveUp();
+                    break;
                 case 5:
                     String fileName;
                     do {
@@ -433,6 +439,7 @@ public class Main {
                     } catch (RuntimeException f) { //Needs error?
                         System.out.println("We done goofed");
                     }
+                    break;
                 default:
                     System.out.println("Not a valid option. Please try again.");
             }

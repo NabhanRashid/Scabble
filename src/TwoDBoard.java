@@ -61,6 +61,7 @@ public class TwoDBoard extends Board {
             for (int yPos = 0; yPos < size; yPos++) {
                 for (int xPos = 0; xPos < size; xPos++) {
                     currentTiles[xPos][yPos] = new Tile();
+                    temporaryTiles[xPos][yPos] = new Tile();
                     String tile = firstLine[yPos * size + xPos + 2];
 
                     if (tile.charAt(0) == '-') {
@@ -68,8 +69,10 @@ public class TwoDBoard extends Board {
                     }
                     if (tile.charAt(0) == ' ') {
                         currentTiles[xPos][yPos].addPiece(tile.charAt(1), true);
+                        temporaryTiles[xPos][yPos].addPiece(tile.charAt(1), true);
                     } else {
                         currentTiles[xPos][yPos].addPiece(tile.charAt(0), false);
+                        temporaryTiles[xPos][yPos].addPiece(tile.charAt(0), false);
                     }
                 }
             }
@@ -153,7 +156,7 @@ public class TwoDBoard extends Board {
                     }
                 } else {
                     if (players.get(turn).tempUse(letter.charAt(0))) {
-                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(0), true);
+                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(0), false);
                         System.out.println("Letter " + letter.charAt(0) + " placed");
                         notPlaced = false;
                     } else {
@@ -175,6 +178,10 @@ public class TwoDBoard extends Board {
      */
     @Override
     public boolean placementValidity() {
+        if (isFirstTurn()) {
+            return true;
+        }
+
         for (int j = 0; j < currentTiles.length; j++) {
             for (int i = 0; i < currentTiles[0].length; i++) {
                 if(hasTileChanged(new int[] {i, j})) {
