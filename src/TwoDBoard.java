@@ -138,7 +138,7 @@ public class TwoDBoard extends Board {
             String letter;
             boolean notPlaced = true;
             while (notPlaced) {
-                letter = input.nextLine();
+                letter = input.nextLine().toUpperCase();
                 while (!((letter.length() == 1 && Character.isLetter(letter.charAt(0))) || (letter.charAt(0) == '_' && letter.length() == 2 && Character.isLetter(letter.charAt(0))))) {
                     System.out.println("Not a valid letter, select another letter:");
                     letter = input.nextLine();

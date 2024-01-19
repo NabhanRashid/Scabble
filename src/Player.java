@@ -111,7 +111,7 @@ public class Player extends PieceBag {
      */
     public boolean tempUse(char letter) {
         if (pieces.contains(letter)) {
-            pieces.remove(letter);
+            pieces.remove((Character) letter);
             piecesInUse.add(letter);
             return true;
         } else {

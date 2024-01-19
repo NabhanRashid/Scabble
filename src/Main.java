@@ -27,6 +27,12 @@ public class Main {
             validInput = true;
             input = INPUT.nextLine().toLowerCase();
 
+            if (input.isEmpty()) {
+                System.out.println("Please enter anything");
+                validInput = false;
+                continue;
+            }
+
             for (char character : characters.toCharArray()) {
                 if (input.charAt(0) == character) {
                     return input;
@@ -125,7 +131,7 @@ public class Main {
 
                     fileName = INPUT.nextLine();
 
-                    if (!(new File(WORD_FILE_PATH + fileName)).exists() && !fileName.equalsIgnoreCase("no more")) {
+                    if (!(new File(WORD_FILE_PATH + fileName)).exists() && !fileName.trim().equalsIgnoreCase("no more")) {
                         System.out.println("Please add a file that exists within the Word_List_Files directory");
                         continue;
                     } else if (fileName.contains(",")) {
@@ -136,7 +142,7 @@ public class Main {
 
                     wordFileNames.add(WORD_FILE_PATH + fileName);
 
-                } while (!fileName.equalsIgnoreCase("no more"));
+                } while (!fileName.trim().equalsIgnoreCase("no more"));
                 // Removing the extraneous "no more"
                 wordFileNames.remove(wordFileNames.size() - 1);
 
@@ -166,14 +172,15 @@ public class Main {
                     if (playerName.contains(",")) {
                         System.out.println("That name had a comma in it, please try again");
                     }
-                    playerNames.add(playerName);
 
-                    if (playerName.equalsIgnoreCase("no more") && playerNames.size() < 3) {
+                    if (playerName.trim().equalsIgnoreCase("no more") && playerNames.size() < 2) {
                         System.out.println("Please add at least two players, it's not much of a game otherwise");
+                        playerName = "A";
                         continue;
                     }
 
-                } while (!playerName.equalsIgnoreCase("no more"));
+                    playerNames.add(playerName);
+                } while (!playerName.trim().equalsIgnoreCase("no more"));
                 // Removing extraneous "no more"
                 playerNames.remove(playerNames.size() - 1);
 
@@ -421,7 +428,7 @@ public class Main {
                         }
                     } while (fileName.equals("exit"));
                     try {
-                        board.saveBoard(FILE_PATH + fileName);
+                        board.saveBoard(SAVE_FILE_PATH + fileName);
                         System.out.println("File saved successfully!");
                         return false;
                     } catch (RuntimeException f) { //Needs error?

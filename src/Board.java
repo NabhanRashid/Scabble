@@ -363,34 +363,15 @@ abstract class Board {
                 System.out.print((char) players.get(turn).getLetters(i) + ", ");
             }
         }
-        for (int j = 0; j < board.length; j++) {
-            for (int i = 0; i < board[0].length; i++) {
-                if(board[j][i].isBlank()) {
-                    System.out.print(board[j][i].getLetter());
-                } else if (board[j][i].getLetter() == 0) {
+        for (int y = 0; y < board.length; y++) {
+            for (int x = 0; x < board[0].length; x++) {
+                if(board[x][y].isBlank()) {
+                    System.out.print(board[x][y].getLetter());
+                } else if (board[x][y].getLetter() == 0) {
                     // The unicode for a blank space
                     switch (boardSize()) {
                         case 11:
-                            switch (smallBoardMultipliers[j][i]) {
-                                case 2:
-                                    System.out.print(Character.toString(0x1F7E6));
-                                    break;
-                                case -2:
-                                    System.out.print(Character.toString(0x1F535));
-                                    break;
-                                case 3:
-                                    System.out.print(Character.toString(0x1F7E5));
-                                    break;
-                                case -3:
-                                    System.out.print(Character.toString(0x1F534));
-                                    break;
-                                case 0:
-                                    System.out.print(Character.toString(0x2B1C));
-                                    break;
-                            }
-                            break;
-                        case 13:
-                            switch (mediumBoardMultipliers[j][i]) {
+                            switch (smallBoardMultipliers[x][y]) {
                                 case 2:
                                     System.out.print(Character.toString(0x1F7E6));
                                     break;
@@ -409,7 +390,26 @@ abstract class Board {
                             }
                             break;
                         case 15:
-                            switch (largeBoardMultipliers[j][i]) {
+                            switch (mediumBoardMultipliers[x][y]) {
+                                case 2:
+                                    System.out.print(Character.toString(0x1F7E6));
+                                    break;
+                                case -2:
+                                    System.out.print(Character.toString(0x1F535));
+                                    break;
+                                case 3:
+                                    System.out.print(Character.toString(0x1F7E5));
+                                    break;
+                                case -3:
+                                    System.out.print(Character.toString(0x1F534));
+                                    break;
+                                case 0:
+                                    System.out.print(Character.toString(0x2B1C));
+                                    break;
+                            }
+                            break;
+                        case 19:
+                            switch (largeBoardMultipliers[x][y]) {
                                 case 2:
                                     System.out.print(Character.toString(0x1F7E6));
                                     break;
@@ -430,7 +430,7 @@ abstract class Board {
                     }
                 } else {
                     // The unicode is for the A emoji letter
-                    int unicodeEmoji = 0x1F1E5 + (board[j][i].getLetter() - 'A');
+                    int unicodeEmoji = 0x1F1E5 + (board[x][y].getLetter() - 'A');
                     System.out.print(Character.toString(unicodeEmoji));
                 }
             }

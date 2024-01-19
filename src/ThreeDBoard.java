@@ -245,5 +245,102 @@ public class ThreeDBoard extends Board {
         }
         return adjacentTile;
     }
+
+    @Override
+    public void printTiles(Tile[][] board) {
+        System.out.print("\n\n\nYour letters: ");
+        for (int i = 0; i < players.get(turn).getSize(); i++) {
+            if (i == players.get(turn).getSize() - 1) {
+                System.out.print((char) players.get(turn).getLetters(i) + "\n\n");
+            } else {
+                System.out.print((char) players.get(turn).getLetters(i) + ", ");
+            }
+        }
+
+        for (int y = 0; y < board.length; y++) {
+            for (int i = 0; i < board.length; i++) {
+                System.out.print(" ----");
+            }
+            System.out.println();
+            for (int x = 0; x < board[0].length; x++) {
+                System.out.print("|");
+                System.out.printf("%02d", board[x][y].getHeight());
+
+                if(board[x][y].isBlank()) {
+                    System.out.print(board[x][y].getLetter());
+                } else if (board[x][y].getLetter() == 0) {
+                    // The unicode for a blank space
+                    switch (boardSize()) {
+                        case 11:
+                            switch (smallBoardMultipliers[x][y]) {
+                                case 2:
+                                    System.out.print(Character.toString(0x1F7E6));
+                                    break;
+                                case -2:
+                                    System.out.print(Character.toString(0x1F535));
+                                    break;
+                                case 3:
+                                    System.out.print(Character.toString(0x1F7E5));
+                                    break;
+                                case -3:
+                                    System.out.print(Character.toString(0x1F534));
+                                    break;
+                                case 0:
+                                    System.out.print(Character.toString(0x2B1C));
+                                    break;
+                            }
+                            break;
+                        case 15:
+                            switch (mediumBoardMultipliers[x][y]) {
+                                case 2:
+                                    System.out.print(Character.toString(0x1F7E6));
+                                    break;
+                                case -2:
+                                    System.out.print(Character.toString(0x1F535));
+                                    break;
+                                case 3:
+                                    System.out.print(Character.toString(0x1F7E5));
+                                    break;
+                                case -3:
+                                    System.out.print(Character.toString(0x1F534));
+                                    break;
+                                case 0:
+                                    System.out.print(Character.toString(0x2B1C));
+                                    break;
+                            }
+                            break;
+                        case 19:
+                            switch (largeBoardMultipliers[x][y]) {
+                                case 2:
+                                    System.out.print(Character.toString(0x1F7E6));
+                                    break;
+                                case -2:
+                                    System.out.print(Character.toString(0x1F535));
+                                    break;
+                                case 3:
+                                    System.out.print(Character.toString(0x1F7E5));
+                                    break;
+                                case -3:
+                                    System.out.print(Character.toString(0x1F534));
+                                    break;
+                                case 0:
+                                    System.out.print(Character.toString(0x2B1C));
+                                    break;
+                            }
+                            break;
+                    }
+                } else {
+                    // The unicode is for the A emoji letter
+                    int unicodeEmoji = 0x1F1E5 + (board[x][y].getLetter() - 'A');
+                    System.out.print(Character.toString(unicodeEmoji));
+                }
+            }
+            System.out.println("|");
+        }
+        for (int i = 0; i < board.length; i++) {
+            System.out.print(" ----");
+        }
+        System.out.println();
+    }
 }
 
