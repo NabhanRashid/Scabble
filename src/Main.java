@@ -29,7 +29,7 @@ public class Main {
 
             for (char character : characters.toCharArray()) {
                 if (input.charAt(0) == character) {
-                    break;
+                    return input;
                 }
             }
 
