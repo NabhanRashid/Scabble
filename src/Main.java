@@ -352,15 +352,14 @@ public class Main {
             }
             switch (input) {
                 case 1:
-                    if (board.isFirstTurn()) {
-                        System.out.println("It is the first turn, so remember to place at least one piece on the" +
-                                " center tile");
-                    }
-
                     board.display();
                     int[] pos = new int[2];
                     int direction;
                     System.out.println("Where would you like to start?");
+                    if (board.isFirstTurn()) {
+                        System.out.println("It is the first turn, so remember to place at least one piece on the" +
+                                " center tile");
+                    }
                     System.out.println("Enter the column number (1 is the leftmost column)");
                     while (true) {
                         try {
