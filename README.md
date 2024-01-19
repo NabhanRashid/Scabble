@@ -51,7 +51,7 @@ and a set of pieces which the players place on it. Any other objects
 ![A picture of the Scrabble Board](Images_For_Documentation/ScrabbleBoardResize.jpg)
 
 Your goal in the game is to win through having the most points. You gain points through placing valid words on the
-board. **Words must be placed with 3 specific rules**
+board. **Words must be placed with 4 specific rules**
 
 1. Words must be placed with at least one piece next to a previously placed piece.
 2. After any piece placement, all pieces connected to one another in a line must create words when read left to right
@@ -59,7 +59,8 @@ or top to bottom.
 3. You cannot place a piece upon another tile
 4. Any piece you place must be adjacent to another piece in the same direction as a previously placed piece
 
-
+**There is also an additional rule for the first player**, they must have at least one piece placed in the center of the
+board
 
 To get the most points, you must create words using uncommon letters, or by placing a piece on a tile with
 a special modifier. The position of these modifiers are pictured above, and modify the pieces as follows:
@@ -164,14 +165,41 @@ Next you will be asked what size you want your board to be. This choice has thre
 2. Medium, a 15x15 board. The original size Scrabble comes in
 3. Large, a 19x19 board. Meant for a large group, or long game
 
-Each of these games have their own 
+Each of these games have their own piece distribution, based on a ratio from the original board's area to the
+additional boards' areas.
 
-<!-- TODO -->
+Next you will be asked to compile your word list. 
+
+1. You will be prompted on whether you want to use
+the main word list. 
+   * This is a simple yes or no question. 
+2. You will be prompted for additional word lists
+or your own creation. 
+   * Fear not, you won't have to remember the file names, the program will tell you what files are in
+   the word list folder.
+
+**The program does not allow you to have 0 word list files**
+
+You will now be prompted to add the players. You can add as many as you would like but the creators have their
+recommended player count for each board size. For each player you have to enter their name (No commas) until you
+have entered all the players.
+
+**The game does not allow you to have 0 or 1 players**
+
+You must now create the piece distribution. You have the default option of using the creators' piece distribution, or
+you can customize it.
+
+For customization you must simply enter how many of each piece you want, or the [d]efault number of pieces.
+
+You have now made your first game of Scrabble, congratulations
 
 
 Loading a Game of Scrabble
 --------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------
+
+Loading a game of Scrabble is really easy. You just have to choose the option when you start the program and pick your
+save file.
 
 Playing a Move on Your Turn
 ======================================================================================
