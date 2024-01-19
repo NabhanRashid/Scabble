@@ -188,7 +188,7 @@ public class Main {
 
                     String numberOfPieces;
                     for (int i = 0; i < 26; i++) {
-                        System.out.println("How many " + ('A' + i) + " pieces would you like in the bag?");
+                        System.out.println("How many " + ((char) ('A' + i)) + " pieces would you like in the bag?");
                         System.out.print("The default number of pieces is " + defaultCounts[i]);
                         System.out.print(". If you'd like that enter \"d\": ");
 
