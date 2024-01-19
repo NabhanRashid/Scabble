@@ -42,7 +42,6 @@ abstract class Board {
     protected int turn;
     /**
      * Holds a board of modifiers for the small tile board (11x11)
-     *
      * The following applies to all modifier arrays:
      *      2 means double letter
      *      -2 means double word
@@ -370,6 +369,22 @@ abstract class Board {
                     System.out.print(board[j][i].getLetter());
                 } else if (board[j][i].getLetter() == 0) {
                     // The unicode for a blank space
+                    switch (boardSize()) {
+                        case 11:
+                            switch (smallBoardMultipliers[j][i]) {
+                                case 2:
+
+                                case -2:
+                                case 3:
+                                case -3:
+                                case 0:
+                            }
+                        case 13:
+                            c;
+                        case 15:
+                            c;
+                        default:
+                    }
                     System.out.print(Character.toString(0x2B1C));
                 } else {
                     // The unicode is for the A emoji letter
@@ -378,6 +393,36 @@ abstract class Board {
                 }
             }
             System.out.println();
+        }
+    }
+
+    /**
+     * Checks if the middle tile is occupied after the first turn
+     * @return true if middle tile is occupied
+     */
+    public boolean isFirstTurn() {
+        switch (boardSize()) {
+            case 11:
+                if (currentTiles[5][5].getHeight() == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            case 13:
+                if (currentTiles[6][6].getHeight() == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            case 15:
+                if (currentTiles[7][7].getHeight() == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            default:
+                System.out.println("Error");
+                return false;
         }
     }
 
