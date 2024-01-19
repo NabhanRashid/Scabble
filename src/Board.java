@@ -358,9 +358,9 @@ abstract class Board {
         System.out.print("\n\n\nYour letters: ");
         for (int i = 0; i < players.get(turn).getSize(); i++) {
             if (i == players.get(turn).getSize() - 1) {
-                System.out.print(players.get(turn).getLetters(i) + "\n\n");
+                System.out.print((char) players.get(turn).getLetters(i) + "\n\n");
             } else {
-                System.out.print(players.get(turn).getLetters(i) + ", ");
+                System.out.print((char) players.get(turn).getLetters(i) + ", ");
             }
         }
         for (int j = 0; j < board.length; j++) {
@@ -373,17 +373,42 @@ abstract class Board {
                         case 11:
                             switch (smallBoardMultipliers[j][i]) {
                                 case 2:
-
+                                    System.out.print(Character.toString(0x1F7E6));
                                 case -2:
+                                    System.out.print(Character.toString(0x1F535));
                                 case 3:
+                                    System.out.print(Character.toString(0x1F7E5));
                                 case -3:
+                                    System.out.print(Character.toString(0x1F534));
                                 case 0:
+                                    System.out.print(Character.toString(0x25A1));
                             }
                         case 13:
-                            c;
+                            switch (mediumBoardMultipliers[j][i]) {
+                                case 2:
+                                    System.out.print(Character.toString(0x1F7E6));
+                                case -2:
+                                    System.out.print(Character.toString(0x1F535));
+                                case 3:
+                                    System.out.print(Character.toString(0x1F7E5));
+                                case -3:
+                                    System.out.print(Character.toString(0x1F534));
+                                case 0:
+                                    System.out.print(Character.toString(0x25A1));
+                            }
                         case 15:
-                            c;
-                        default:
+                            switch (largeBoardMultipliers[j][i]) {
+                                case 2:
+                                    System.out.print(Character.toString(0x1F7E6));
+                                case -2:
+                                    System.out.print(Character.toString(0x1F535));
+                                case 3:
+                                    System.out.print(Character.toString(0x1F7E5));
+                                case -3:
+                                    System.out.print(Character.toString(0x1F534));
+                                case 0:
+                                    System.out.print(Character.toString(0x25A1));
+                            }
                     }
                     System.out.print(Character.toString(0x2B1C));
                 } else {
