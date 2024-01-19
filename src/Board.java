@@ -374,43 +374,60 @@ abstract class Board {
                             switch (smallBoardMultipliers[j][i]) {
                                 case 2:
                                     System.out.print(Character.toString(0x1F7E6));
+                                    break;
                                 case -2:
                                     System.out.print(Character.toString(0x1F535));
+                                    break;
                                 case 3:
                                     System.out.print(Character.toString(0x1F7E5));
+                                    break;
                                 case -3:
                                     System.out.print(Character.toString(0x1F534));
+                                    break;
                                 case 0:
-                                    System.out.print(Character.toString(0x25A1));
+                                    System.out.print(Character.toString(0x2B1C));
+                                    break;
                             }
+                            break;
                         case 13:
                             switch (mediumBoardMultipliers[j][i]) {
                                 case 2:
                                     System.out.print(Character.toString(0x1F7E6));
+                                    break;
                                 case -2:
                                     System.out.print(Character.toString(0x1F535));
+                                    break;
                                 case 3:
                                     System.out.print(Character.toString(0x1F7E5));
+                                    break;
                                 case -3:
                                     System.out.print(Character.toString(0x1F534));
+                                    break;
                                 case 0:
-                                    System.out.print(Character.toString(0x25A1));
+                                    System.out.print(Character.toString(0x2B1C));
+                                    break;
                             }
+                            break;
                         case 15:
                             switch (largeBoardMultipliers[j][i]) {
                                 case 2:
                                     System.out.print(Character.toString(0x1F7E6));
+                                    break;
                                 case -2:
                                     System.out.print(Character.toString(0x1F535));
+                                    break;
                                 case 3:
                                     System.out.print(Character.toString(0x1F7E5));
+                                    break;
                                 case -3:
                                     System.out.print(Character.toString(0x1F534));
+                                    break;
                                 case 0:
-                                    System.out.print(Character.toString(0x25A1));
+                                    System.out.print(Character.toString(0x2B1C));
+                                    break;
                             }
+                            break;
                     }
-                    System.out.print(Character.toString(0x2B1C));
                 } else {
                     // The unicode is for the A emoji letter
                     int unicodeEmoji = 0x1F1E5 + (board[j][i].getLetter() - 'A');
