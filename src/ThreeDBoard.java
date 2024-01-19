@@ -129,7 +129,7 @@ public class ThreeDBoard extends Board {
     @Override
     public void letterPlacement(int[] pos) {
         Scanner input = new Scanner(System.in);
-        if (temporaryTiles[pos[1]][pos[0]].getLetter() == 0) {
+        if (temporaryTiles[pos[0]][pos[1]].getLetter() == 0) {
             System.out.println("What letter would you like to play?" +
                     "\nPut an underscore in front of the letter to use a blank");
             String letter;
@@ -142,7 +142,7 @@ public class ThreeDBoard extends Board {
                 }
                 if (letter.charAt(0) == '_') {
                     if (players.get(turn).tempUse(' ')) {
-                        temporaryTiles[pos[1]][pos[0]].addPiece(letter.charAt(1), true);
+                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(1), true);
                         System.out.println("Blank placed, representing the letter " + letter.charAt(1));
                         notPlaced = false;
                     } else {
@@ -150,7 +150,7 @@ public class ThreeDBoard extends Board {
                     }
                 } else {
                     if (players.get(turn).tempUse(letter.charAt(0))) {
-                        temporaryTiles[pos[1]][pos[0]].addPiece(letter.charAt(0), true);
+                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(0), true);
                         System.out.println("Letter " + letter.charAt(0) + " placed");
                         notPlaced = false;
                     } else {
@@ -162,7 +162,7 @@ public class ThreeDBoard extends Board {
             int choice = 0;
             while (choice == 0) {
                 try {
-                    System.out.println("The letter " + temporaryTiles[pos[1]][pos[0]].getLetter() + "is occupying this space already." +
+                    System.out.println("The letter " + temporaryTiles[pos[0]][pos[1]].getLetter() + "is occupying this space already." +
                             "\nChoose an option using the numbers:" +
                             "\n\t1. Play over it" +
                             "\n\t2. Leave it\n");
@@ -181,7 +181,7 @@ public class ThreeDBoard extends Board {
                                 }
                                 if (letter.charAt(0) == '_') {
                                     if (players.get(turn).tempUse(' ')) {
-                                        temporaryTiles[pos[1]][pos[0]].addPiece(letter.charAt(1), true);
+                                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(1), true);
                                         System.out.println("Blank placed, representing the letter " + letter.charAt(1));
                                         notPlaced = false;
                                     } else {
@@ -189,7 +189,7 @@ public class ThreeDBoard extends Board {
                                     }
                                 } else {
                                     if (players.get(turn).tempUse(letter.charAt(0))) {
-                                        temporaryTiles[pos[1]][pos[0]].addPiece(letter.charAt(0), true);
+                                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(0), true);
                                         System.out.println("Letter " + letter.charAt(0) + " placed");
                                         notPlaced = false;
                                     } else {
