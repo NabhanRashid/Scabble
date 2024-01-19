@@ -65,172 +65,197 @@ public class Main {
                  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  \s""");
 
         System.out.println("Welcome to Scabble! :D\n");
-        System.out.println("Would you like to\n 1: start a new game\n 2: load a previous game?");
-        System.out.println("Please enter your choice as a number below");
 
-        int choice = Integer.parseInt(validInput(1, 2, ""));
+        boolean gameMade = false;
 
-        if (choice == 1) {
-            System.out.println("Starting a new game!\n");
-            System.out.println("What type of game would you like?");
-            System.out.println("Your possible game types are:");
-            System.out.println(
-                    """
-                            \t1: Two Dimensional Scrabble (The original)
-                            \t2: Three Dimensional Scrabble (The remastered)"""
-            );
-            int boardType = Integer.parseInt(validInput(1, 2, ""));
+        while (!gameMade) {
+            System.out.println("Would you like to\n 1: start a new game\n 2: load a previous game?");
+            System.out.println("Please enter your choice as a number below");
 
-            System.out.println("What size would you like your board to be?");
-            System.out.println("Your possible sizes are: ");
-            System.out.println(
-                    """
-                            \t1: Small
-                            \t2: Medium
-                            \t3: Large"""
-            );
-            int boardSize = Integer.parseInt(validInput(1, 3, "")) - 1;
+            int choice = Integer.parseInt(validInput(1, 2, ""));
+            if (choice == 1) {
+                System.out.println("Starting a new game!\n");
+                System.out.println("What type of game would you like?");
+                System.out.println("Your possible game types are:");
+                System.out.println(
+                        """
+                                \t1: Two Dimensional Scrabble (The original)
+                                \t2: Three Dimensional Scrabble (The remastered)"""
+                );
+                int boardType = Integer.parseInt(validInput(1, 2, ""));
 
-            System.out.println("Would you like to use the default wordList with over 250 thousand words?");
-            ArrayList<String> wordFileNames = new ArrayList<>();
+                System.out.println("What size would you like your board to be?");
+                System.out.println("Your possible sizes are: ");
+                System.out.println(
+                        """
+                                \t1: Small
+                                \t2: Medium
+                                \t3: Large"""
+                );
+                int boardSize = Integer.parseInt(validInput(1, 3, "")) - 1;
 
-            char answer = validInput(1, -1, "yn").charAt(0);
+                System.out.println("Would you like to use the default wordList with over 250 thousand words?");
+                ArrayList<String> wordFileNames = new ArrayList<>();
 
-            if (answer == 'y') {
-                wordFileNames.add("Game_Files/Collins Scrabble Words (2019).txt");
-            }
+                char answer = validInput(1, -1, "yn").charAt(0);
 
-            System.out.println("Please add any additional files within the Word_List_Files directory" +
-                    " from which to get words (Type \"No More\" to stop)");
-            String fileName;
-            do {
-                System.out.print("Your file name " +
-                        "(Remember to ensure they are in the specified format else they won't work properly): ");
-
-                fileName = INPUT.nextLine();
-
-                if (!(new File(WORD_FILE_PATH + fileName)).exists()) {
-                    System.out.println("Please add a file that exists within the Word_List_Files directory");
-                    continue;
+                if (answer == 'y') {
+                    wordFileNames.add("Game_Files/Collins Scrabble Words (2019).txt");
                 }
 
-                wordFileNames.add(WORD_FILE_PATH + fileName);
+                System.out.println("Please add any additional files within the Word_List_Files directory" +
+                        " from which to get words (Type \"No More\" to stop)");
+                String fileName;
+                do {
+                    System.out.print("Your file name " +
+                            "(Remember to ensure they are in the specified format else they won't work properly): ");
 
-            } while (!fileName.equalsIgnoreCase("no more"));
-            // Removing the extraneous "no more"
-            wordFileNames.remove(wordFileNames.size() - 1);
+                    fileName = INPUT.nextLine();
 
-            System.out.println("Please let each player add their name (Type \"No More\" to stop)");
-            System.out.print("We recommend up to ");
-            if (boardSize == 0) {
-                System.out.print("3");
-            } else if (boardSize == 1) {
-                System.out.print("4");
-            } else {
-                System.out.print("6");
-            }
-            System.out.println(" players for this board size");
+                    if (!(new File(WORD_FILE_PATH + fileName)).exists()) {
+                        System.out.println("Please add a file that exists within the Word_List_Files directory");
+                        continue;
+                    }
 
-            String playerName;
-            ArrayList<String> playerNames = new ArrayList<>();
+                    wordFileNames.add(WORD_FILE_PATH + fileName);
 
-            do {
-                System.out.println("Enter your name (You are allowed any character but a comma)");
-                playerName = INPUT.nextLine();
+                } while (!fileName.equalsIgnoreCase("no more"));
+                // Removing the extraneous "no more"
+                wordFileNames.remove(wordFileNames.size() - 1);
 
-                if (playerName.contains(",")) {
-                    System.out.println("That name had a comma in it, please try again");
+                System.out.println("Please let each player add their name (Type \"No More\" to stop)");
+                System.out.print("We recommend up to ");
+                if (boardSize == 0) {
+                    System.out.print("3");
+                } else if (boardSize == 1) {
+                    System.out.print("4");
+                } else {
+                    System.out.print("6");
                 }
-                playerNames.add(playerName);
+                System.out.println(" players for this board size");
 
-            } while (!playerName.equalsIgnoreCase("no more"));
-            // Removing extraneous "no more"
-            playerNames.remove(playerNames.size() - 1);
+                String playerName;
+                ArrayList<String> playerNames = new ArrayList<>();
 
-            System.out.println("Would you like the default number of pieces in the bag? (y/n)");
-            int[] pieceBagCounts = new int[27];
+                do {
+                    System.out.println("Enter your name (You are allowed any character but a comma)");
+                    playerName = INPUT.nextLine();
 
-            if (validInput(1, -1, "yn").charAt(0) == 'y') {
-                for (int i = 0; i < 27; i++) {
-                    pieceBagCounts[i] = -1;
-                }
-            } else {
-                System.out.println("Please enter the amount of each piece you would like in the bag");
+                    if (playerName.contains(",")) {
+                        System.out.println("That name had a comma in it, please try again");
+                    }
+                    playerNames.add(playerName);
 
-                int[] defaultCounts;
-                switch (boardSize) {
-                    case 0 -> defaultCounts = Board.defaultSmallPieceCounts;
-                    case 1 -> defaultCounts = Board.defaultMediumPieceCounts;
-                    case 2 -> defaultCounts = Board.defaultBigPieceCounts;
-                    default -> throw new Error("This should never happen");
-                }
+                } while (!playerName.equalsIgnoreCase("no more"));
+                // Removing extraneous "no more"
+                playerNames.remove(playerNames.size() - 1);
 
-                String numberOfPieces;
-                for (int i = 0; i < 26; i++) {
-                    System.out.println("How many " + ('A' + i) + " pieces would you like in the bag?");
-                    System.out.print("The default number of pieces is " + defaultCounts[i]);
+                System.out.println("Would you like the default number of pieces in the bag? (y/n)");
+                int[] pieceBagCounts = new int[27];
+
+                if (validInput(1, -1, "yn").charAt(0) == 'y') {
+                    for (int i = 0; i < 27; i++) {
+                        pieceBagCounts[i] = -1;
+                    }
+                } else {
+                    System.out.println("Please enter the amount of each piece you would like in the bag");
+
+                    int[] defaultCounts;
+                    switch (boardSize) {
+                        case 0 -> defaultCounts = Board.defaultSmallPieceCounts;
+                        case 1 -> defaultCounts = Board.defaultMediumPieceCounts;
+                        case 2 -> defaultCounts = Board.defaultBigPieceCounts;
+                        default -> throw new Error("This should never happen");
+                    }
+
+                    String numberOfPieces;
+                    for (int i = 0; i < 26; i++) {
+                        System.out.println("How many " + ('A' + i) + " pieces would you like in the bag?");
+                        System.out.print("The default number of pieces is " + defaultCounts[i]);
+                        System.out.print(". If you'd like that enter \"d\": ");
+
+                        numberOfPieces = validInput(0, 999999, "d");
+
+                        if (numberOfPieces.charAt(0) == 'd') {
+                            pieceBagCounts[i] = -1;
+                        } else {
+                            pieceBagCounts[i] = Integer.parseInt(numberOfPieces);
+                        }
+                    }
+                    System.out.println("How many blank pieces would you like in the bag?");
+                    System.out.print("The default number of pieces is " + defaultCounts[26]);
                     System.out.print(". If you'd like that enter \"d\": ");
 
                     numberOfPieces = validInput(0, 999999, "d");
 
                     if (numberOfPieces.charAt(0) == 'd') {
-                        pieceBagCounts[i] = -1;
+                        pieceBagCounts[26] = -1;
                     } else {
-                        pieceBagCounts[i] = Integer.parseInt(numberOfPieces);
+                        pieceBagCounts[26] = Integer.parseInt(numberOfPieces);
                     }
                 }
-                System.out.println("How many blank pieces would you like in the bag?");
-                System.out.print("The default number of pieces is " + defaultCounts[26]);
-                System.out.print(". If you'd like that enter \"d\": ");
 
-                numberOfPieces = validInput(0, 999999, "d");
-
-                if (numberOfPieces.charAt(0) == 'd') {
-                    pieceBagCounts[26] = -1;
-                } else {
-                    pieceBagCounts[26] = Integer.parseInt(numberOfPieces);
+                if (boardType == 1) {
+                    board = new TwoDBoard(boardSize, wordFileNames, playerNames, pieceBagCounts);
+                } else if (boardType == 2) {
+                    board = new ThreeDBoard(boardSize, wordFileNames, playerNames, pieceBagCounts);
                 }
-            }
 
-            if (boardType == 1) {
-                board = new TwoDBoard(boardSize, wordFileNames, playerNames, pieceBagCounts);
-            } else if (boardType == 2) {
-                board = new ThreeDBoard(boardSize, wordFileNames, playerNames, pieceBagCounts);
-            }
+                gameMade = true;
 
-        // Creation of a game from a saveFile
-        } else if (choice == 2) {
-            boolean givenValidFilePath;
+                // Creation of a game from a saveFile
+            } else if (choice == 2) {
+                boolean givenValidFilePath;
 
-            do {
-                givenValidFilePath = true;
-                System.out.println("Where is your file located? Please finish the file location below");
-                System.out.print("Game_Files/");
-                String fileName = SAVE_FILE_PATH + INPUT.nextLine();
+                do {
+                    givenValidFilePath = true;
+                    System.out.println("What save file would you like to use? The save files in existence are below. " +
+                            "(Type \"exit\" to leave this menu)");
+                    File saveFileDirectory = new File(SAVE_FILE_PATH);
 
-                try {
-                    Scanner fileReader = new Scanner(new File(fileName));
-
-                    // Get the first argument, should be "2D" or "3D"
-                    String gameType = fileReader.nextLine().split(",")[0];
-
-                    if (gameType.equals("2D")) {
-                        board = new TwoDBoard(fileName);
-                    } else if (gameType.equals("3D")) {
-                        board = new ThreeDBoard(fileName);
+                    if (saveFileDirectory.list() == null) {
+                        System.out.println("The save folder has no files");
+                        System.out.println("Exiting menu...");
+                        break;
                     } else {
-                        System.out.println("The file found at " + fileName + "Did not lead to a game file");
+                        for (String file : saveFileDirectory.list()) {
+                            System.out.println(file);
+                        }
+                    }
+
+                    String fileName = SAVE_FILE_PATH + INPUT.nextLine();
+
+                    if (fileName.toLowerCase().equals(SAVE_FILE_PATH.toLowerCase() + "exit")) {
+                        break;
+                    }
+
+                    try {
+                        Scanner fileReader = new Scanner(new File(fileName));
+
+                        // Get the first argument, should be "2D" or "3D"
+                        String gameType = fileReader.nextLine().split(",")[0];
+
+                        if (gameType.equals("2D")) {
+                            board = new TwoDBoard(fileName);
+                        } else if (gameType.equals("3D")) {
+                            board = new ThreeDBoard(fileName);
+                        } else {
+                            System.out.println("The file found at " + fileName + "Did not lead to a game file");
+                            System.out.println("Please try again");
+                            givenValidFilePath = false;
+                        }
+
+                        gameMade = true;
+
+                    } catch (IOException e) {
+                        System.out.println("The file path " + fileName + "Did not lead to a game file");
                         System.out.println("Please try again");
                         givenValidFilePath = false;
                     }
-
-                } catch (IOException e) {
-                    System.out.println("The file path " + fileName + "Did not lead to a game file");
-                    System.out.println("Please try again");
-                    givenValidFilePath = false;
-                }
-            } while (!givenValidFilePath);
+                } while (!givenValidFilePath);
+            }
         }
+
         boolean playable = true;
         while (playable) {
             if (!playerTurn()) {
@@ -354,8 +379,15 @@ public class Main {
                 case 4:
                     board.giveUp();
                 case 5:
-                    System.out.println("What file name would you like to save your game to?");
-                    String fileName = INPUT.nextLine();
+                    String fileName;
+                    do {
+                        System.out.println("What file name would you like to save your game to?");
+                        fileName = INPUT.nextLine();
+
+                        if (fileName.equals("exit")) {
+                            System.out.println("That is a reserved file name, please choose another one");
+                        }
+                    } while (fileName.equals("exit"));
                     try {
                         board.saveBoard(FILE_PATH + fileName);
                         System.out.println("File saved successfully!");

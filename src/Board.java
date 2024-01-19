@@ -249,7 +249,7 @@ abstract class Board {
                 Scanner fileReader = new Scanner(file);
 
                 while (fileReader.hasNextLine()) {
-                    wordList.add(fileReader.nextLine());
+                    wordList.add(fileReader.nextLine().toUpperCase());
                 }
 
             } catch (FileNotFoundException e) {
