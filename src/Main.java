@@ -100,6 +100,7 @@ public class Main {
                 char answer = validInput(1, -1, "yn").charAt(0);
 
                 if (answer == 'y') {
+                    System.out.println("Adding to word list");
                     wordFileNames.add("Game_Files/Collins Scrabble Words (2019).txt");
                 }
 
@@ -157,6 +158,11 @@ public class Main {
                         System.out.println("That name had a comma in it, please try again");
                     }
                     playerNames.add(playerName);
+
+                    if (playerName.equalsIgnoreCase("no more") && playerNames.size() < 3) {
+                        System.out.println("Please add at least two players, it's not much of a game otherwise");
+                        continue;
+                    }
 
                 } while (!playerName.equalsIgnoreCase("no more"));
                 // Removing extraneous "no more"
