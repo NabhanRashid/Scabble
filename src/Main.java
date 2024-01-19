@@ -94,7 +94,7 @@ public class Main {
                 );
                 int boardSize = Integer.parseInt(validInput(1, 3, "")) - 1;
 
-                System.out.println("Would you like to use the default wordList with over 250 thousand words?");
+                System.out.println("Would you like to use the default wordList with over 250 thousand words? (y/n)");
                 ArrayList<String> wordFileNames = new ArrayList<>();
 
                 char answer = validInput(1, -1, "yn").charAt(0);
