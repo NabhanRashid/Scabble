@@ -128,6 +128,10 @@ public class Main {
                     if (!(new File(WORD_FILE_PATH + fileName)).exists() && !fileName.equalsIgnoreCase("no more")) {
                         System.out.println("Please add a file that exists within the Word_List_Files directory");
                         continue;
+                    } else if (fileName.contains(",")) {
+                        System.out.println("Do not have a file with a comma, if you would like to use this file, please" +
+                                " change the name");
+                        continue;
                     }
 
                     wordFileNames.add(WORD_FILE_PATH + fileName);
