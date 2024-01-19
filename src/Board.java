@@ -592,7 +592,12 @@ abstract class Board {
      */
     public boolean placeWord(int[] pos, int direction) {
         Scanner input = new Scanner(System.in);
-        temporaryTiles = currentTiles.clone();
+        for (int x = 0; x < currentTiles.length; x++) {
+            for (int y = 0; y < currentTiles.length; y++) {
+                temporaryTiles[x][y] = new Tile(currentTiles[x][y]);
+            }
+        }
+
         int option = 0;
         boolean placing = true;
         while (placing) {
@@ -642,7 +647,12 @@ abstract class Board {
         }
         if (!placementValidity()) {
             System.out.println("Word placement wasn't valid. Restarting turn");
-            temporaryTiles = currentTiles.clone();
+
+            for (int x = 0; x < currentTiles.length; x++) {
+                for (int y = 0; y < currentTiles.length; y++) {
+                    temporaryTiles[x][y] = new Tile(currentTiles[x][y]);
+                }
+            }
             players.get(turn).unsuccessfulPlay();
             return false;
         }
@@ -653,7 +663,12 @@ abstract class Board {
             System.out.println("Placement successful. Your play is worth " + boardWordScan() + " points");
             players.get(turn).addPoints(boardWordScan());
             players.get(turn).successfulPlay(bag);
-            currentTiles = temporaryTiles.clone();
+
+            for (int x = 0; x < currentTiles.length; x++) {
+                for (int y = 0; y < currentTiles.length; y++) {
+                    currentTiles[x][y] = new Tile(temporaryTiles[x][y]);
+                }
+            }
         }
         skipTurn();
         return true;
@@ -720,7 +735,9 @@ abstract class Board {
      */
     private boolean isValidWord(int[] startPoint, int[] endPoint) {
         String word = "";
-        int[] currentPosition = startPoint.clone();
+        int[] currentPosition = new int[2];
+        currentPosition[0] = startPoint[0];
+        currentPosition[1] = startPoint[1];
 
         while (currentPosition[0] != endPoint[0] || currentPosition[1] != endPoint[1]) {
             word += temporaryTiles[currentPosition[0]][currentPosition[1]].getLetter();
@@ -741,7 +758,9 @@ abstract class Board {
         int wordsPoints = 0;
 
         int wordMultiplier = 1;
-        int[] currentPosition = startPoint.clone();
+        int[] currentPosition = new int[2];
+        currentPosition[0] = startPoint[0];
+        currentPosition[1] = startPoint[1];
 
 
         while (currentPosition[0] != endPoint[0] || currentPosition[1] != endPoint[1]) {

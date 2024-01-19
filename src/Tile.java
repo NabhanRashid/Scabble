@@ -94,4 +94,10 @@ public class Tile {
         this.isBlank = isBlank;
         this.height = height;
     }
+
+    public Tile(Tile other) {
+        this.letter = other.letter;
+        this.isBlank = other.isBlank;
+        this.height = other.height;
+    }
 }

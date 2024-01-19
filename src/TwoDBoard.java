@@ -182,15 +182,15 @@ public class TwoDBoard extends Board {
             return true;
         }
 
-        for (int j = 0; j < currentTiles.length; j++) {
-            for (int i = 0; i < currentTiles[0].length; i++) {
+        for (int j = 0; j < temporaryTiles.length; j++) {
+            for (int i = 0; i < temporaryTiles[0].length; i++) {
                 if(hasTileChanged(new int[] {i, j})) {
                     for (int m = -1; m < 2; m++) {
                         try {
-                            if (currentTiles[i+m][j].getHeight() != 0) {
+                            if (temporaryTiles[i+m][j].getHeight() != 0) {
                                 return true;
                             }
-                            if (currentTiles[i][j+m].getHeight() != 0) {
+                            if (temporaryTiles[i][j+m].getHeight() != 0) {
                                 return true;
                             }
                         } catch (ArrayIndexOutOfBoundsException ignored) {
