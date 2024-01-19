@@ -107,24 +107,24 @@ public class Main {
                         " from which to get words (Type \"No More\" to stop)");
                 String fileName;
                 do {
-                    System.out.print("Your file name " +
-                            "(Remember to ensure they are in the specified format else they won't work properly): ");
+                    File wordFileDirectory = new File(WORD_FILE_PATH);
 
-                    File saveFileDirectory = new File(WORD_FILE_PATH);
-
-                    if (saveFileDirectory.list() == null) {
-                        System.out.println("The save folder has no files");
+                    if (wordFileDirectory.list() == null) {
+                        System.out.println("The word folder has no files");
                         System.out.println("Exiting menu...");
                         break;
                     } else {
-                        for (String file : saveFileDirectory.list()) {
+                        for (String file : wordFileDirectory.list()) {
                             System.out.println(file);
                         }
                     }
 
+                    System.out.print("Your file name " +
+                            "(Remember to ensure they are in the specified format else they won't work properly): ");
+
                     fileName = INPUT.nextLine();
 
-                    if (!(new File(WORD_FILE_PATH + fileName)).exists()) {
+                    if (!(new File(WORD_FILE_PATH + fileName)).exists() && !fileName.equalsIgnoreCase("no more")) {
                         System.out.println("Please add a file that exists within the Word_List_Files directory");
                         continue;
                     }
