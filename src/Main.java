@@ -136,6 +136,11 @@ public class Main {
                 // Removing the extraneous "no more"
                 wordFileNames.remove(wordFileNames.size() - 1);
 
+                if (wordFileNames.isEmpty()) {
+                    System.out.println("Please add at least one word list file");
+                    continue;
+                }
+
                 System.out.println("Please let each player add their name (Type \"No More\" to stop)");
                 System.out.print("We recommend up to ");
                 if (boardSize == 0) {
