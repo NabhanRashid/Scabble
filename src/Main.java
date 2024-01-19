@@ -110,6 +110,18 @@ public class Main {
                     System.out.print("Your file name " +
                             "(Remember to ensure they are in the specified format else they won't work properly): ");
 
+                    File saveFileDirectory = new File(WORD_FILE_PATH);
+
+                    if (saveFileDirectory.list() == null) {
+                        System.out.println("The save folder has no files");
+                        System.out.println("Exiting menu...");
+                        break;
+                    } else {
+                        for (String file : saveFileDirectory.list()) {
+                            System.out.println(file);
+                        }
+                    }
+
                     fileName = INPUT.nextLine();
 
                     if (!(new File(WORD_FILE_PATH + fileName)).exists()) {
