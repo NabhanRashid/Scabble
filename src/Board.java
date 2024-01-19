@@ -745,7 +745,11 @@ abstract class Board {
             currentPosition[0] += (endPoint[0] - currentPosition[0] == 0) ? 0 : 1;
             currentPosition[1] += (endPoint[1] - currentPosition[1] == 0) ? 0 : 1;
         }
-        return Collections.binarySearch(wordList, word) < 0;
+        if (word.length() < 2) {
+            return true;
+        }
+
+        return Collections.binarySearch(wordList, word) >= 0;
     }
 
     /**

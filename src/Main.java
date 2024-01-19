@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -328,11 +329,14 @@ public class Main {
      * For saveBoard, fetches the file name to be saved under
      */
     public static boolean playerTurn() {
+        System.out.println("It will be " + board.currentPlayer().getName() + "'s turn. Press enter to continue.");
+        INPUT.nextLine();
         for (int i = 0; i < 100; i++) {
             System.out.println();
         }
         System.out.println("It is now " + board.currentPlayer().getName() + "'s turn. Press enter to continue.");
         INPUT.nextLine();
+
         int input = 0;
         while (input < 1 || input > 4) {
             board.display();
