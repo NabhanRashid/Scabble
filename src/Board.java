@@ -599,9 +599,9 @@ abstract class Board {
             letterPlacement(pos);
             // For direction, up is 0, right is 1, down is 2, left is 3
             switch (direction) {
-                case 0 -> pos[1] += 1;
+                case 0 -> pos[1] -= 1;
                 case 1 -> pos[0] += 1;
-                case 2 -> pos[1] -= 1;
+                case 2 -> pos[1] += 1;
                 case 3 -> pos[0] -= 1;
             }
             option = 0;
@@ -642,6 +642,7 @@ abstract class Board {
         }
         if (!placementValidity()) {
             System.out.println("Word placement wasn't valid. Restarting turn");
+            temporaryTiles = currentTiles.clone();
             players.get(turn).unsuccessfulPlay();
             return false;
         }
@@ -652,7 +653,7 @@ abstract class Board {
             System.out.println("Placement successful. Your play is worth " + boardWordScan() + " points");
             players.get(turn).addPoints(boardWordScan());
             players.get(turn).successfulPlay(bag);
-            currentTiles = temporaryTiles;
+            currentTiles = temporaryTiles.clone();
         }
         skipTurn();
         return true;
