@@ -458,14 +458,14 @@ abstract class Board {
                 } else {
                     return true;
                 }
-            case 13:
-                if (currentTiles[6][6].getHeight() == 0) {
+            case 15:
+                if (currentTiles[7][7].getHeight() == 0) {
                     return false;
                 } else {
                     return true;
                 }
-            case 15:
-                if (currentTiles[7][7].getHeight() == 0) {
+            case 19:
+                if (currentTiles[9][9].getHeight() == 0) {
                     return false;
                 } else {
                     return true;
