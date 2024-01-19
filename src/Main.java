@@ -345,6 +345,11 @@ public class Main {
             }
             switch (input) {
                 case 1:
+                    if (isFirstTurn()) {
+                        System.out.println("It is the first turn, so remember to place at least one piece on the" +
+                                " center tile");
+                    }
+
                     board.display();
                     int[] pos = new int[2];
                     int direction;

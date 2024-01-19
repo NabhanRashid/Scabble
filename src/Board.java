@@ -579,16 +579,22 @@ abstract class Board {
             while (option == 0) {
                 printTiles(temporaryTiles);
                 System.out.println("""
-                    Choose one of the following options:
-                    \tKeep playing word
-                    \tFinish word
-                    \tRestart turn
-                    """);
+                        Choose one of the following options:
+                        \t1: Keep playing word
+                        \t2: Finish word
+                        \t3: Restart turn
+                        """);
                 try {
                     option = Integer.parseInt(input.nextLine());
                     switch (option) {
                         case 1:
                         case 2:
+                            if (isFirstTurn()) {
+                                if (temporaryTiles[temporaryTiles.length / 2][temporaryTiles.length / 2].getHeight() == -1) {
+                                    System.out.println("You cannot finish your word, no tile has been placed on the center tile");
+                                    continue;
+                                }
+                            }
                             placing = false;
                         case 3:
                             System.out.println("Restarting turn");
