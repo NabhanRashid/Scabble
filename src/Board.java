@@ -281,6 +281,8 @@ abstract class Board {
             // Second & Third-X Lines
             int numberOfPlayers = Integer.parseInt(reader.nextLine());
 
+            players = new ArrayList<>();
+
             for (int i = 0; i < numberOfPlayers; i++) {
                 String[] currentPlayer = reader.nextLine().split(",");
 
@@ -296,6 +298,8 @@ abstract class Board {
                 if (currentPlayer[numberOfPieces + 3].equals("f")) {
                     currentPlayerObject.outOfGame();
                 }
+
+                players.add(currentPlayerObject);
             }
 
             // Third Last Line
@@ -307,9 +311,13 @@ abstract class Board {
                 bag.addPieces(bagLine[i].charAt(0), 1);
             }
 
+            wordFileNames = new ArrayList<>();
+
             for (String wordFileName : reader.nextLine().split(",")) {
                 wordFileNames.add(wordFileName);
             }
+
+            wordList = new ArrayList<>();
 
             for (String nameOfFile : wordFileNames) {
                 File file = new File(nameOfFile);
