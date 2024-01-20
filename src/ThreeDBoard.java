@@ -143,14 +143,8 @@ public class ThreeDBoard extends Board {
             String letter;
             boolean notPlaced = true;
             while (notPlaced) {
-                letter = input.nextLine().toLowerCase();
-
-                if (letter.isEmpty()) {
-                    System.out.println("Please put something");
-                    continue;
-                }
-
-                while (!((letter.length() == 1 && Character.isLetter(letter.charAt(0))) || (letter.charAt(0) == '_' && letter.length() == 2 && Character.isLetter(letter.charAt(0))))) {
+                letter = input.nextLine();
+                while (!((letter.length() == 1 && Character.isLetter(letter.charAt(0))) || (letter.charAt(0) == '_' && letter.length() == 2 && Character.isLetter(letter.charAt(1))))) {
                     System.out.println("Not a valid letter, select another letter:");
                     letter = input.nextLine();
                 }
@@ -203,7 +197,7 @@ public class ThreeDBoard extends Board {
                                     }
                                 } else {
                                     if (players.get(turn).tempUse(letter.charAt(0))) {
-                                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(0), false);
+                                        temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(0), true);
                                         System.out.println("Letter " + letter.charAt(0) + " placed");
                                         notPlaced = false;
                                     } else {
@@ -247,13 +241,13 @@ public class ThreeDBoard extends Board {
                         try {
                             if (currentTiles[i+m][j].getHeight() != 0) {
                                 adjacentTile = true;
-                                if (Math.abs(temporaryTiles[i+m][j].getHeight() - currentTiles[i][j].getHeight()) > 1) {
+                                if (Math.abs(temporaryTiles[i+m][j].getHeight() - temporaryTiles[i][j].getHeight()) > 1) {
                                     return false;
                                 }
                             }
                             if (currentTiles[i][j+m].getHeight() != 0) {
                                 adjacentTile = true;
-                                if (Math.abs(temporaryTiles[i][j+m].getHeight() - currentTiles[i][j].getHeight()) > 1) {
+                                if (Math.abs(temporaryTiles[i][j+m].getHeight() - temporaryTiles[i][j].getHeight()) > 1) {
                                     return false;
                                 }
                             }
@@ -271,17 +265,10 @@ public class ThreeDBoard extends Board {
         System.out.print("\n\n\nYour letters: ");
         for (int i = 0; i < players.get(turn).getSize(); i++) {
             if (i == players.get(turn).getSize() - 1) {
-                System.out.print((char) players.get(turn).getLetters(i) + ": " +
-                        Tile.getPoint((char) players.get(turn).getLetters(i)) + "\n\n");
+                System.out.print((char) players.get(turn).getLetters(i) + "\n\n");
             } else {
-                System.out.print((char) players.get(turn).getLetters(i) + ": " +
-                        Tile.getPoint((char) players.get(turn).getLetters(i)) + ", ");
+                System.out.print((char) players.get(turn).getLetters(i) + ", ");
             }
-        }
-
-        // I don't think this will ever be reached
-        if (players.get(turn).pieces.isEmpty()) {
-            System.out.println("\n\n");
         }
 
         for (int y = 0; y < board.length; y++) {
@@ -294,7 +281,7 @@ public class ThreeDBoard extends Board {
                 System.out.printf("%02d", board[x][y].getHeight());
 
                 if(board[x][y].isBlank()) {
-                    System.out.print(board[x][y].getLetter() + " ");
+                    System.out.print(board[x][y].getLetter());
                 } else if (board[x][y].getLetter() == 0) {
                     // The unicode for a blank space
                     switch (boardSize()) {
@@ -359,7 +346,7 @@ public class ThreeDBoard extends Board {
                 } else {
                     // The unicode is for the A emoji letter
                     int unicodeEmoji = 0x1F170 + (board[x][y].getLetter() - 'A');
-                    System.out.print(Character.toString(unicodeEmoji) + " ");
+                    System.out.print(Character.toString(unicodeEmoji));
                 }
             }
             System.out.println("|");
