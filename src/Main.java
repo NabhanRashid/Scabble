@@ -416,11 +416,11 @@ public class Main {
                     pos[0] -= 1;
                     pos[1] -= 1;
                     System.out.println("What direction would you like to play in?");
-                    System.out.println("Up is 0, right is 1, down is 2, left is 3");
+                    System.out.println("Up is 1, right is 2, down is 3, left is 4");
                     while (true) {
                         try {
                             direction = Integer.parseInt(INPUT.nextLine());
-                            if (direction > 3 || direction < 0) {
+                            if (direction > 4 || direction < 1) {
                                 System.out.println("Not a valid direction. Please enter a number between 1 and 4");
                             } else {
                                 break;
@@ -429,7 +429,7 @@ public class Main {
                             System.out.println("Please input a valid number");
                         }
                     }
-                    if (!board.placeWord(pos, direction)) {
+                    if (!board.placeWord(pos, direction - 1)) {
                         input = 0;
                     }
                     break;
