@@ -652,9 +652,10 @@ abstract class Board {
                         case 2:
                             if (isFirstTurn()) {
                                 if (temporaryTiles[temporaryTiles.length / 2][temporaryTiles.length / 2].getHeight() == 0) {
-                                    System.out.println("You cannot place your word, no tile has been placed on the center tile");
-                                    option = 0;
-                                    continue;
+                                    System.out.println("You cannot place your word, no tile has been placed on the center tile. Press enter to restart");
+                                    input.nextLine();
+                                    players.get(turn).unsuccessfulPlay();
+                                    return false;
                                 }
                             }
                             placing = false;
