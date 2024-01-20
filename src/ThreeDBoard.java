@@ -165,7 +165,7 @@ public class ThreeDBoard extends Board {
             int choice = 0;
             while (choice == 0) {
                 try {
-                    System.out.println("The letter " + temporaryTiles[pos[0]][pos[1]].getLetter() + "is occupying this space already." +
+                    System.out.println("The letter " + temporaryTiles[pos[0]][pos[1]].getLetter() + " is occupying this space already." +
                             "\nChoose an option using the numbers:" +
                             "\n\t1. Play over it" +
                             "\n\t2. Leave it\n");

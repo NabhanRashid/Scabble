@@ -165,8 +165,10 @@ public class TwoDBoard extends Board {
                 }
             }
         } else {
-            System.out.println("The letter " + temporaryTiles[pos[0]][pos[1]].getLetter() + "is occupying this space already." +
-                    "\nAs such, this placement will be skipped.");
+            System.out.println("The letter " + temporaryTiles[pos[0]][pos[1]].getLetter() + " is occupying this space already." +
+                    "\nAs such, this placement will be skipped." +
+                    "\nPress enter to continue;");
+            input.nextLine();
         }
     }
 
