@@ -640,6 +640,13 @@ abstract class Board {
                                 option = 0;
                                 continue;
                             }
+                            try {
+                                currentTiles[pos[0]][pos[1]].getLetter();
+                            } catch (IndexOutOfBoundsException e) {
+                                System.out.println("You cannot keep playing, you have gone off the board. Choose another option");
+                                option = 0;
+                                continue;
+                            }
                             break;
                         case 2:
                             if (isFirstTurn()) {
