@@ -340,7 +340,7 @@ public class ThreeDBoard extends Board {
                     }
                 } else {
                     // The unicode is for the A emoji letter
-                    int unicodeEmoji = 0x1F1E5 + (board[x][y].getLetter() - 'A');
+                    int unicodeEmoji = 0x1F170 + (board[x][y].getLetter() - 'A');
                     System.out.print(Character.toString(unicodeEmoji));
                 }
             }
