@@ -127,7 +127,7 @@ public class Player extends PieceBag {
      */
     public void successfulPlay(PieceBag pieceBag) {
         piecesInUse.clear();
-        while (pieces.size() < 7) {
+        while (pieces.size() < 7 && pieceBag.getSize() > 0) {
             pieces.add(pieceBag.takePiece());
         }
         sort();

@@ -372,6 +372,10 @@ abstract class Board {
                 System.out.print((char) players.get(turn).getLetters(i) + ", ");
             }
         }
+        if (players.get(turn).pieces.isEmpty()) {
+            System.out.println("\n\n");
+        }
+
         for (int y = 0; y < board.length; y++) {
             for (int x = 0; x < board[0].length; x++) {
                 if(board[x][y].isBlank()) {
@@ -539,7 +543,15 @@ abstract class Board {
                 return false;
             }
         } while (!players.get(turn).isInGame());
-        return true;
+
+         if (players.get(turn).pieces.isEmpty()) {
+             players.get(turn).outOfGame();
+             System.out.println("Skipping " + players.get(turn).getName() + " due to having no pieces");
+
+             skipTurn();
+         }
+
+         return true;
     }
 
     /**
@@ -623,11 +635,17 @@ abstract class Board {
                     option = Integer.parseInt(input.nextLine());
                     switch (option) {
                         case 1:
+                            if (players.get(turn).pieces.isEmpty()) {
+                                System.out.println("You have no pieces left, you can't do that");
+                                option = 0;
+                                continue;
+                            }
                             break;
                         case 2:
                             if (isFirstTurn()) {
-                                if (temporaryTiles[temporaryTiles.length / 2][temporaryTiles.length / 2].getHeight() == -1) {
-                                    System.out.println("You cannot finish your word, no tile has been placed on the center tile");
+                                if (temporaryTiles[temporaryTiles.length / 2][temporaryTiles.length / 2].getHeight() == 0) {
+                                    System.out.println("You cannot place your word, no tile has been placed on the center tile");
+                                    option = 0;
                                     continue;
                                 }
                             }
@@ -664,6 +682,10 @@ abstract class Board {
             System.out.println("Placement successful. Your play is worth " + boardWordScan() + " points");
             players.get(turn).addPoints(boardWordScan());
             players.get(turn).successfulPlay(bag);
+
+            if (bag.getSize() == 0) {
+                System.out.println("THE BAG HAS RUN OUT OF PIECES");
+            }
 
             for (int x = 0; x < currentTiles.length; x++) {
                 for (int y = 0; y < currentTiles.length; y++) {
