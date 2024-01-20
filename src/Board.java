@@ -643,7 +643,8 @@ abstract class Board {
                             try {
                                 currentTiles[pos[0]][pos[1]].getLetter();
                             } catch (IndexOutOfBoundsException e) {
-                                System.out.println("You cannot keep playing, you have gone off the board. Choose another option");
+                                System.out.println("You cannot keep playing, you have gone off the board. Press enter to continue");
+                                input.nextLine();
                                 option = 0;
                                 continue;
                             }
