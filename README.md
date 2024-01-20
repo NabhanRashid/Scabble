@@ -34,7 +34,7 @@ Table of Contents:
 >### [Starting a Game of Scrabble](#starting-a-game-of-scrabble)
 >>#### [Loading a Game of Scrabble](#loading-a-game-of-scrabble)
 >### [Playing a Move on Your Turn](#playing-a-move-on-your-turn)
->### [Quitting a Game of Scrabble](#quitting-a-game-of-scrabble)
+>### [Ending a Game of Scrabble](#ending-a-game-of-scrabble)
 
 Rules of Game
 ======================================================================================
@@ -219,6 +219,70 @@ Playing a Move on Your Turn
 ======================================================================================
 --------------------------------------------------------------------------------------
 
-Quitting a Game of Scrabble
+Upon starting the game, you will be greeted by an airlock system for move making. This means that before handing off
+the game, you will be prompted to enter an "airlock" so the next player doesn't see your tiles, and you don't see
+theirs. What this looks like can be seen below
+
+![image of airlock system](Images_For_Documentation/The%20Airlock.png)
+
+Any time you are prompted by the airlock system, you simply press enter, hand off the controls, and let the next player
+press enter to play their turn.
+
+On your turn, you will be asked to make a choice between five options.
+
+1. Place word
+> Here you will place the word you want to play.
+> 
+> This works by allowing you to choose where you want to start your word placement, and then the direction the word
+> will grow in.
+> 
+> Then, upon each letter placed, you will be prompted to keep adding to your word finish the word, or restart your word
+> placement if you messed up
+> 
+> ![Placing a word](Images_For_Documentation/Placing%20a%20Word.png)
+> 
+> Continue to place pieces until you are happy with your word and want to finish.
+> 
+> Upon finishing, the program will check if the placement is valid, if it is not it, will allow you to play again.
+> 
+> Then the program will check if all words created are valid, if they are not, **it will skip your turn**. Be careful 
+> when making a word.
+> 
+> If while making a word in 2D scrabble, you come across an already placed piece, the program will skip over those tiles
+> to allow you to place more letters.
+> 
+> If while making a word in 3D scrabble, you come across an already placed piece, the program will allow you to play on
+> top of the piece, or skip over it. ***NOTE, the program will not check if you follow the staircase rule until after
+> you play your entire word.***
+
+2. Exchange letters
+> This is pretty simple, if you don't like the pieces you have, you can exchange them with those in the bag.
+> 
+> This will skip your turn.
+
+3. Skip turn
+> Also relatively simple, if you don't like the board state you can skip your turn and give it to the next player.
+
+4. Give up
+> If you feel hopeless, or don't think exchanging or skipping will change anything, you can choose to give up.
+> 
+> This will take you out of the game so you no longer have to play.
+
+5. Save game and exit
+> If you don't have the time to finish the game, you can save the game and exit. This will prompt you to create a save
+> file, which on your next boot up of the program, you can pick up from where you last left.
+
+Ending a Game of Scrabble
 ======================================================================================
 --------------------------------------------------------------------------------------
+The game ends in a single way. Everyone gets out of the game.
+
+Getting out of the game can happen in two ways.
+
+1. Giving up, as mentioned in the previous section
+2. Running out of pieces and having no pieces left in the bag
+
+Once the game ends the board will print itself one last time, and the winner(s) will be declared.
+
+
+# Thank you for playing Scabble
