@@ -189,10 +189,10 @@ public class TwoDBoard extends Board {
                 if(hasTileChanged(new int[] {i, j})) {
                     for (int m = -1; m < 2; m++) {
                         try {
-                            if (temporaryTiles[i+m][j].getHeight() != 0) {
+                            if (currentTiles[i+m][j].getHeight() != 0) {
                                 return true;
                             }
-                            if (temporaryTiles[i][j+m].getHeight() != 0) {
+                            if (currentTiles[i][j+m].getHeight() != 0) {
                                 return true;
                             }
                         } catch (ArrayIndexOutOfBoundsException ignored) {

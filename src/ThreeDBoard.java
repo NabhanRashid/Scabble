@@ -234,15 +234,15 @@ public class ThreeDBoard extends Board {
                 if(hasTileChanged(new int[] {i, j})) {
                     for (int m = -1; m < 2; m++) {
                         try {
-                            if (temporaryTiles[i+m][j].getHeight() != 0) {
+                            if (currentTiles[i+m][j].getHeight() != 0) {
                                 adjacentTile = true;
-                                if (Math.abs(temporaryTiles[i+m][j].getHeight() - temporaryTiles[i][j].getHeight()) > 1) {
+                                if (Math.abs(temporaryTiles[i+m][j].getHeight() - currentTiles[i][j].getHeight()) > 1) {
                                     return false;
                                 }
                             }
-                            if (temporaryTiles[i][j+m].getHeight() != 0) {
+                            if (currentTiles[i][j+m].getHeight() != 0) {
                                 adjacentTile = true;
-                                if (Math.abs(temporaryTiles[i][j+m].getHeight() - temporaryTiles[i][j].getHeight()) > 1) {
+                                if (Math.abs(temporaryTiles[i][j+m].getHeight() - currentTiles[i][j].getHeight()) > 1) {
                                     return false;
                                 }
                             }
