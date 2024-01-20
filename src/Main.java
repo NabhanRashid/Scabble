@@ -322,16 +322,16 @@ public class Main {
                 System.out.println("You have reached the end of the game!");
                 System.out.println("This is what the final board looks like: ");
                 board.display();
-                String[] winners = board.winningPlayers();
-                if (winners.length == 1) {
-                    System.out.println("\n Player " + winners[0] + " wins! Congratulations!");
+                ArrayList<String> winners = board.winningPlayers();
+                if (winners.size() == 1) {
+                    System.out.println("\n Player " + winners.get(0) + " wins! Congratulations!");
                 } else {
                     System.out.print("\n Players ");
-                    for (int i = 0; i < winners.length; i++) {
-                        if (i == winners.length - 1) {
-                            System.out.print(winners[i]);
+                    for (int i = 0; i < winners.size(); i++) {
+                        if (i == winners.size() - 1) {
+                            System.out.print(winners.get(i));
                         } else {
-                            System.out.print(winners[i] + " and ");
+                            System.out.print(winners.get(i) + " and ");
                         }
                     }
                     System.out.println(" win! Congratulations!");
@@ -446,6 +446,7 @@ public class Main {
                     break;
                 case 4:
                     board.giveUp();
+                    board.skipTurn();
                     break;
                 case 5:
                     String fileName;

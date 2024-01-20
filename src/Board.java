@@ -556,7 +556,7 @@ abstract class Board {
         return true;
     }
 
-    public String[] winningPlayers() {
+    public ArrayList<String> winningPlayers() {
         Player winner = players.get(0);
         ArrayList<String> winnerNames = new ArrayList<>();
         winnerNames.add(players.get(0).getName());
@@ -569,7 +569,8 @@ abstract class Board {
                 winnerNames.add(player.getName());
             }
         }
-        return (String[]) winnerNames.toArray();
+
+        return winnerNames;
     }
 
     /**
