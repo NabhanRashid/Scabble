@@ -143,10 +143,10 @@ public class ThreeDBoard extends Board {
             String letter;
             boolean notPlaced = true;
             while (notPlaced) {
-                letter = input.nextLine().toLowerCase();
+                letter = input.nextLine().toUpperCase();
                 while (!((letter.length() == 1 && Character.isLetter(letter.charAt(0))) || (letter.charAt(0) == '_' && letter.length() == 2 && Character.isLetter(letter.charAt(1))))) {
                     System.out.println("Not a valid letter, select another letter:");
-                    letter = input.nextLine().toLowerCase();
+                    letter = input.nextLine().toUpperCase();
                 }
                 if (letter.charAt(0) == '_') {
                     if (players.get(turn).tempUse(' ')) {
@@ -182,10 +182,10 @@ public class ThreeDBoard extends Board {
                             String letter;
                             boolean notPlaced = true;
                             while (notPlaced) {
-                                letter = input.nextLine().toLowerCase();
+                                letter = input.nextLine().toUpperCase();
                                 while (!((letter.length() == 1 && Character.isLetter(letter.charAt(0))) || (letter.charAt(0) == '_' && letter.length() == 2 && Character.isLetter(letter.charAt(1))))) {
                                     System.out.println("Not a valid letter, select another letter:");
-                                    letter = input.nextLine().toLowerCase();
+                                    letter = input.nextLine().toUpperCase();
                                 }
                                 if (letter.charAt(0) == '_') {
                                     if (players.get(turn).tempUse(' ')) {
