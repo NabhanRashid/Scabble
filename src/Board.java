@@ -312,8 +312,10 @@ abstract class Board {
 
             String[] bagLine = reader.nextLine().split(",");
 
-            for (int i = 0; i < bagLine.length; i++) {
-                bag.addPieces(bagLine[i].charAt(0), 1);
+            if (!bagLine[0].isEmpty()) {
+                for (int i = 0; i < bagLine.length; i++) {
+                    bag.addPieces(bagLine[i].charAt(0), 1);
+                }
             }
 
             wordFileNames = new ArrayList<>();
@@ -390,7 +392,7 @@ abstract class Board {
                 // If the tile is blank, then print a raw letter
                 if(board[x][y].isBlank()) {
                     System.out.print(board[x][y].getLetter() + " ");
-                    // For an empty board print
+                // For an empty tile print a color depending on the modifier
                 } else if (board[x][y].getLetter() == 0) {
                     // The unicode for a blank space
                     switch (boardSize()) {
@@ -453,7 +455,7 @@ abstract class Board {
                             break;
                     }
                 } else {
-                    // The unicode is for the A emoji letter
+                // Print a stylized emoji for an actual letter
                     int unicodeEmoji = 0x1F170 + (board[x][y].getLetter() - 'A');
                     System.out.print(Character.toString(unicodeEmoji) + " ");
                 }
@@ -548,19 +550,22 @@ abstract class Board {
     public boolean skipTurn() {
         int firstPlayer = turn;
 
-         do {
+        // Until reaching a player who is still in the game, or the player who originally called for the function
+        // Loop through the player list
+        do {
             turn = (turn + 1) % players.size();
             if (firstPlayer == turn) {
                 return false;
             }
         } while (!players.get(turn).isInGame());
 
-         if (players.get(turn).pieces.isEmpty()) {
-             players.get(turn).outOfGame();
-             System.out.println("Skipping " + players.get(turn).getName() + " due to having no pieces");
+        // A check to ensure no players without pieces play
+        if (players.get(turn).pieces.isEmpty()) {
+            players.get(turn).outOfGame();
+            System.out.println("Skipping " + players.get(turn).getName() + " due to having no pieces");
 
-             skipTurn();
-         }
+            skipTurn();
+        }
 
          return true;
     }
@@ -579,7 +584,12 @@ abstract class Board {
         return true;
     }
 
+    /**
+     * Compiles the list of winners based off highest point count
+     * @return List of winners
+     */
     public ArrayList<String> winningPlayers() {
+        // Filters through the list of players and bubbles the highest point players (Ties are counted)
         Player winner = players.get(0);
         ArrayList<String> winnerNames = new ArrayList<>();
         winnerNames.add(players.get(0).getName());
@@ -616,6 +626,7 @@ abstract class Board {
      */
     public boolean placeWord(int[] pos, int direction) {
         Scanner input = new Scanner(System.in);
+        // A loop to clone currentTiles to temporaryTiles
         for (int x = 0; x < currentTiles.length; x++) {
             for (int y = 0; y < currentTiles.length; y++) {
                 temporaryTiles[x][y] = new Tile(currentTiles[x][y]);
@@ -634,6 +645,7 @@ abstract class Board {
                 case 3 -> pos[0] -= 1;
             }
             option = 0;
+            // While a bad choice is made repeat (A bad choice can be found through finding an "option = 0")
             while (option == 0) {
                 printTiles(temporaryTiles);
                 System.out.println("""
@@ -687,6 +699,7 @@ abstract class Board {
         if (!placementValidity()) {
             System.out.println("Word placement wasn't valid. Restarting turn");
 
+            // Reset temporary tiles to original board
             for (int x = 0; x < currentTiles.length; x++) {
                 for (int y = 0; y < currentTiles.length; y++) {
                     temporaryTiles[x][y] = new Tile(currentTiles[x][y]);
@@ -707,6 +720,7 @@ abstract class Board {
                 System.out.println("THE BAG HAS RUN OUT OF PIECES");
             }
 
+            // Finalize tiles on current board
             for (int x = 0; x < currentTiles.length; x++) {
                 for (int y = 0; y < currentTiles.length; y++) {
                     currentTiles[x][y] = new Tile(temporaryTiles[x][y]);
@@ -736,7 +750,6 @@ abstract class Board {
                     }
 
                     // Now wordStart is the beginning of the word (inclusive) and row is the end of the word (exclusive)
-
                     if (!isValidWord(new int[]{col, wordStart}, new int[]{col, row})) {
                         return -1;
                     }
@@ -757,7 +770,6 @@ abstract class Board {
                     }
 
                     // Now wordStart is the beginning of the word (inclusive) and row is the end of the word (exclusive)
-
                     if (!isValidWord(new int[]{wordStart, row}, new int[]{col, row})) {
                         return -1;
                     }
@@ -782,12 +794,15 @@ abstract class Board {
         currentPosition[0] = startPoint[0];
         currentPosition[1] = startPoint[1];
 
+        // While not reaching the endPoint add to the word
         while (currentPosition[0] != endPoint[0] || currentPosition[1] != endPoint[1]) {
             word += temporaryTiles[currentPosition[0]][currentPosition[1]].getLetter();
 
+            // Get closer to end point
             currentPosition[0] += (endPoint[0] - currentPosition[0] == 0) ? 0 : 1;
             currentPosition[1] += (endPoint[1] - currentPosition[1] == 0) ? 0 : 1;
         }
+        // If it is a single letter word it doesn't need a check
         if (word.length() < 2) {
             return true;
         }
@@ -802,6 +817,7 @@ abstract class Board {
      * @return points gotten from word, or 0 if the no letter in word has been placed on turn
      */
     public int wordPoints(int[] startPoint, int[] endPoint) {
+        // If the word is one letter long it's not counted
         if (Math.abs(startPoint[0] - endPoint[0]) + Math.abs(startPoint[1] - endPoint[1]) < 2) {
             return 0;
         }
@@ -823,6 +839,7 @@ abstract class Board {
             default -> throw new RuntimeException("Somehow the board doesn't have one of the preset lengths");
         }
 
+        // While not at end of board
         while (currentPosition[0] != endPoint[0] || currentPosition[1] != endPoint[1]) {
             int tilePoint = temporaryTiles[currentPosition[0]][currentPosition[1]].getPoint();
 
@@ -830,9 +847,9 @@ abstract class Board {
                 throw new RuntimeException("The given range by wordPoints has a tile with nothing on it");
             }
 
+            // If the tile was placed this turn, affect point as necessary
             if (hasTileChanged(currentPosition)) {
                 countsToPoints = true;
-
 
                 switch (boardForMultiplier[currentPosition[0]][currentPosition[1]]) {
                     case 2 -> wordsPoints += tilePoint * 2;
@@ -851,9 +868,11 @@ abstract class Board {
                 wordsPoints += tilePoint;
             }
 
+            // Get closer to the end point
             currentPosition[0] += (endPoint[0] - currentPosition[0] == 0) ? 0 : 1;
             currentPosition[1] += (endPoint[1] - currentPosition[1] == 0) ? 0 : 1;
         }
+        // If one of the pieces was placed this turn return the point total, if not return 0
         if (countsToPoints) {
             return wordsPoints * wordMultiplier;
         } else {
