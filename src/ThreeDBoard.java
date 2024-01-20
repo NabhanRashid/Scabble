@@ -70,8 +70,6 @@ public class ThreeDBoard extends Board {
                         currentTiles[xPos][yPos].addPiece(tile.charAt(tile.length() - 1), true, height);
                     } else {
                         if (tile.length() == 1) {
-                            temporaryTiles[xPos][yPos].addPiece(tile.charAt(0), false, 0);
-                            currentTiles[xPos][yPos].addPiece(tile.charAt(0), false, 0);
                             continue;
                         }
 
