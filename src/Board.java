@@ -801,7 +801,16 @@ abstract class Board {
         int[] currentPosition = new int[2];
         currentPosition[0] = startPoint[0];
         currentPosition[1] = startPoint[1];
+        boolean countsToPoints = false;
 
+        int[][] boardForMultiplier;
+
+        switch (temporaryTiles.length) {
+            case 11 -> boardForMultiplier = smallBoardMultipliers;
+            case 15 -> boardForMultiplier = mediumBoardMultipliers;
+            case 19 -> boardForMultiplier = largeBoardMultipliers;
+            default -> throw new RuntimeException("Somehow the board doesn't have one of the preset lengths");
+        }
 
         while (currentPosition[0] != endPoint[0] || currentPosition[1] != endPoint[1]) {
             int tilePoint = temporaryTiles[currentPosition[0]][currentPosition[1]].getPoint();
@@ -811,14 +820,9 @@ abstract class Board {
             }
 
             if (hasTileChanged(currentPosition)) {
-                int[][] boardForMultiplier;
+                countsToPoints = true;
 
-                switch (temporaryTiles.length) {
-                    case 11 -> boardForMultiplier = smallBoardMultipliers;
-                    case 15 -> boardForMultiplier = mediumBoardMultipliers;
-                    case 19 -> boardForMultiplier = largeBoardMultipliers;
-                    default -> throw new RuntimeException("Somehow the board doesn't have one of the preset lengths");
-                }
+
                 switch (boardForMultiplier[currentPosition[0]][currentPosition[1]]) {
                     case 2 -> wordsPoints += tilePoint * 2;
                     case 3 -> wordsPoints += tilePoint * 3;
@@ -839,8 +843,11 @@ abstract class Board {
             currentPosition[0] += (endPoint[0] - currentPosition[0] == 0) ? 0 : 1;
             currentPosition[1] += (endPoint[1] - currentPosition[1] == 0) ? 0 : 1;
         }
-
-        return wordsPoints * wordMultiplier;
+        if (countsToPoints) {
+            return wordsPoints * wordMultiplier;
+        } else {
+            return 0;
+        }
     }
 
     /**
