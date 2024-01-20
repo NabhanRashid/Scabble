@@ -61,17 +61,24 @@ public class ThreeDBoard extends Board {
                     currentTiles[xPos][yPos] = new Tile();
                     temporaryTiles[xPos][yPos] = new Tile();
                     String tile = firstLine[yPos * size + xPos + 2];
-                    int height = Integer.parseInt(tile.substring(1, tile.length() - 1));
+                    int height;
 
                     if (tile.charAt(0) == ' ') {
+                        height = Integer.parseInt(tile.substring(1, tile.length() - 1));
 
-                        for (int i = 0; i < height; i++) {
-                            temporaryTiles[xPos][yPos].addPiece(tile.charAt(tile.length() - 1), true, height);
-                            currentTiles[xPos][yPos].addPiece(tile.charAt(tile.length() - 1), true, height);
-                        }
+                        temporaryTiles[xPos][yPos].addPiece(tile.charAt(tile.length() - 1), true, height);
+                        currentTiles[xPos][yPos].addPiece(tile.charAt(tile.length() - 1), true, height);
                     } else {
+                        if (tile.length() == 1) {
+                            temporaryTiles[xPos][yPos].addPiece(tile.charAt(0), false, 0);
+                            currentTiles[xPos][yPos].addPiece(tile.charAt(0), false, 0);
+                            continue;
+                        }
+
+                        height = Integer.parseInt(tile.substring(0, tile.length() - 1));
+
                         temporaryTiles[xPos][yPos].addPiece(tile.charAt(tile.length() - 1), false, height);
-                        currentTiles[xPos][yPos].addPiece(tile.charAt(0), false, height);
+                        currentTiles[xPos][yPos].addPiece(tile.charAt(tile.length() - 1), false, height);
                     }
                 }
             }
