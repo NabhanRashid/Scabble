@@ -534,7 +534,7 @@ abstract class Board {
         int firstPlayer = turn;
 
          do {
-            turn += 1 % players.size();
+            turn = (turn + 1) % players.size();
             if (firstPlayer == turn) {
                 return false;
             }

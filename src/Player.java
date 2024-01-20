@@ -77,9 +77,10 @@ public class Player extends PieceBag {
      * @param pieceBag PieceBag to exchange with
      */
     public void exchangePieces(PieceBag pieceBag) {
-        for (Character piece : pieces) {
-            pieceBag.addPieces(piece, 1);
-            pieces.remove(piece);
+        for (int i = 0, end = pieces.size(); i < end; i++) {
+            char removedPiece = pieces.remove(0);
+
+            pieceBag.addPieces(removedPiece, 1);
         }
 
         for (int i = 0; i < 7 && pieceBag.getSize() > 0; i++) {

@@ -296,7 +296,7 @@ public class Main {
                         } else if (gameType.equals("3D")) {
                             board = new ThreeDBoard(fileName);
                         } else {
-                            System.out.println("The file found at " + fileName + "Did not lead to a game file");
+                            System.out.println("The file found at " + fileName + " did not lead to a game file");
                             System.out.println("Please try again");
                             givenValidFilePath = false;
                         }
@@ -304,7 +304,7 @@ public class Main {
                         gameMade = true;
 
                     } catch (IOException e) {
-                        System.out.println("The file path " + fileName + "Did not lead to a game file");
+                        System.out.println("The file path " + fileName + " did not lead to a game file");
                         System.out.println("Please try again");
                         givenValidFilePath = false;
                     }
