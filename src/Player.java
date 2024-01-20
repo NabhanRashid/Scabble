@@ -54,7 +54,11 @@ public class Player extends PieceBag {
      * @return points
      */
     public int getLetters(int index) {
-        return pieces.get(index);
+        if (pieces.get(index) == ' ') {
+            return '_';
+        } else {
+            return pieces.get(index);
+        }
     }
 
     /**
