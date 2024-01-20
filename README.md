@@ -172,11 +172,15 @@ Next you will be asked to compile your word list.
 
 1. You will be prompted on whether you want to use
 the main word list. 
-   * This is a simple yes or no question. 
+   * This is a simple yes or no question.
 2. You will be prompted for additional word lists
 or your own creation. 
    * Fear not, you won't have to remember the file names, the program will tell you what files are in
    the word list folder.
+
+![Steps up to picking word list](Images_For_Documentation/Word%20List%20step.png)
+
+Above is a user following the steps up to adding additional word list files.
 
 **The program does not allow you to have 0 word list files**
 
@@ -189,7 +193,12 @@ have entered all the players.
 You must now create the piece distribution. You have the default option of using the creators' piece distribution, or
 you can customize it.
 
-For customization you must simply enter how many of each piece you want, or the [d]efault number of pieces.
+For customization, you must simply enter how many of each piece you want, or the [d]efault number of pieces.
+
+![Image of customizing the piece distribution](Images_For_Documentation/Custom%20piece%20distribution.png)
+
+Above you can see a custom piece distribution. You can also see how tedious it is. The creators reccomend using the
+default distribution
 
 You have now made your first game of Scrabble, congratulations
 
@@ -199,7 +208,12 @@ Loading a Game of Scrabble
 --------------------------------------------------------------------------------------
 
 Loading a game of Scrabble is really easy. You just have to choose the option when you start the program and pick your
-save file.
+save file. This is very difficult to mess up, as the program will even list any and all save files present in 
+the folder.
+
+![image of loading the board](Images_For_Documentation/Load%20Board.png)
+
+In the image above, the user has the option between the "Testing" save file, and the "FailSave.txt" save file.
 
 Playing a Move on Your Turn
 ======================================================================================
