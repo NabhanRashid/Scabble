@@ -108,6 +108,10 @@ public class Tile {
         this.height = height;
     }
 
+    /**
+     * Creates a copy from another tile object
+     * @param other Tile to copy parameters from
+     */
     public Tile(Tile other) {
         this.letter = other.letter;
         this.isBlank = other.isBlank;

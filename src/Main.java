@@ -5,10 +5,25 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    /**
+     * The file path for to the game files
+     */
     public static final String FILE_PATH = "Game_Files/";
+    /**
+     * File path to the word lists
+     */
     public static final String WORD_FILE_PATH = "Game_Files/Word_List_Files/";
+    /**
+     * File path to the save files
+     */
     public static final String SAVE_FILE_PATH = "Game_Files/Save_Files/";
+    /**
+     * Scanner to be used by everything
+     */
     public static final Scanner INPUT = new Scanner(System.in);
+    /**
+     * Main board which is played on
+     */
     public static Board board;
 
     /**
@@ -132,6 +147,7 @@ public class Main {
 
                     fileName = INPUT.nextLine().trim();
 
+                    // If the file doesn't exist and the user didn't enter "no more"
                     if (!(new File(WORD_FILE_PATH + fileName)).exists() && !fileName.trim().equalsIgnoreCase("no more")) {
                         System.out.println("Please add a file that exists within the Word_List_Files directory");
                         continue;
@@ -321,7 +337,7 @@ public class Main {
             if (board.endOfGame()) {
                 System.out.println("You have reached the end of the game!");
                 System.out.println("This is what the final board looks like: ");
-                board.display();
+                board.printTiles(board.currentTiles);
                 ArrayList<String> winners = board.winningPlayers();
                 if (winners.size() == 1) {
                     System.out.println("\n Player " + winners.get(0) + " wins! Congratulations!");
@@ -350,6 +366,7 @@ public class Main {
      * For saveBoard, fetches the file name to be saved under
      */
     public static boolean playerTurn() {
+        // Airlock system, but it's an honor system
         System.out.println("It will be " + board.currentPlayer().getName() + "'s turn. Press enter to continue.");
         INPUT.nextLine();
         for (int i = 0; i < 100; i++) {
@@ -469,6 +486,7 @@ public class Main {
                 default:
                     System.out.println("Not a valid option. Please try again.");
             }
+            // If there is no way for player to have a piece, they give up
             if (board.currentPlayer().getSize() == 0 && board.bag.getSize() == 0) {
                 board.giveUp();
             }

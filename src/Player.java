@@ -50,8 +50,8 @@ public class Player extends PieceBag {
     }
 
     /**
-     * Gets the players amount of points
-     * @return points
+     * Gets a letter from the player
+     * @return letter, '-' if it is a blank
      */
     public int getLetters(int index) {
         if (pieces.get(index) == ' ') {
@@ -81,6 +81,8 @@ public class Player extends PieceBag {
      * @param pieceBag PieceBag to exchange with
      */
     public void exchangePieces(PieceBag pieceBag) {
+        // This looks weird, but it's not done in another way due to java not liking concurrent access to an
+        // ArrayList. Interesting
         for (int i = 0, end = pieces.size(); i < end; i++) {
             char removedPiece = pieces.remove(0);
 

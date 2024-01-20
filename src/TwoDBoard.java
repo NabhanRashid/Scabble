@@ -142,10 +142,11 @@ public class TwoDBoard extends Board {
             boolean notPlaced = true;
             while (notPlaced) {
                 letter = input.nextLine().toUpperCase();
-                while (!((letter.length() == 1 && Character.isLetter(letter.charAt(0))) || (letter.charAt(0) == '_' && letter.length() == 2 && Character.isLetter(letter.charAt(1))))) {
+                while (letter.isEmpty() || !((letter.length() == 1 && Character.isLetter(letter.charAt(0))) || (letter.charAt(0) == '_' && letter.length() == 2 && Character.isLetter(letter.charAt(1))))) {
                     System.out.println("Not a valid letter, select another letter:");
                     letter = input.nextLine().toUpperCase();
                 }
+                // Use blank piece or throw error if don't have
                 if (letter.charAt(0) == '_') {
                     if (players.get(turn).tempUse(' ')) {
                         temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(1), true);
@@ -154,6 +155,7 @@ public class TwoDBoard extends Board {
                     } else {
                         System.out.println("You do not have that letter. Choose another letter:");
                     }
+                // Use piece or throw error if don't have
                 } else {
                     if (players.get(turn).tempUse(letter.charAt(0))) {
                         temporaryTiles[pos[0]][pos[1]].addPiece(letter.charAt(0), false);
@@ -165,6 +167,7 @@ public class TwoDBoard extends Board {
                 }
             }
         } else {
+            // Skip the letter
             System.out.println("The letter " + temporaryTiles[pos[0]][pos[1]].getLetter() + " is occupying this space already." +
                     "\nAs such, this placement will be skipped." +
                     "\nPress enter to continue;");
@@ -184,8 +187,11 @@ public class TwoDBoard extends Board {
             return true;
         }
 
+        // For each tile
         for (int j = 0; j < temporaryTiles.length; j++) {
             for (int i = 0; i < temporaryTiles[0].length; i++) {
+                // If a piece was placed this turn, check if an adjacent tile exists, if yes, then return true
+                // Otherwise continue to next tile.
                 if(hasTileChanged(new int[] {i, j})) {
                     for (int m = -1; m < 2; m++) {
                         try {
