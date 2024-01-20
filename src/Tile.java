@@ -73,6 +73,19 @@ public class Tile {
     }
 
     /**
+     * Gets value of character
+     * @param character character for which value to get
+     * @return value of character
+     */
+    static public int getPoint(char character) {
+        if (character == '_') {
+            return 0;
+        }
+
+        return piecePoints[Character.toUpperCase(character) - 'A'];
+    }
+
+    /**
      * Adds onto the tile, overlapping it with a new character, and adding to the height
      * @param letter letter to set the tile to
      * @param isBlank whether the tile is a blank for points

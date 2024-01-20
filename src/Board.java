@@ -184,7 +184,6 @@ abstract class Board {
         this.wordFileNames =  wordFileNames;
 
         // Addition of players with names
-
         players = new ArrayList<>();
 
         for (String name : playerNames) {
@@ -201,6 +200,7 @@ abstract class Board {
 
         bag = new PieceBag();
 
+        // Add all the pieces to the pieceBag or the default amount (Not including blanks for special character
         for (int i = 0; i < 26; i++) {
             int count = pieceBagCounts[i];
 
@@ -219,6 +219,7 @@ abstract class Board {
             }
         }
 
+        // Add amount of blanks
         if (pieceBagCounts[26] < -1) {
             throw new InvalidParameterException("Do not add a number of pieces less than -1");
         }
@@ -233,7 +234,6 @@ abstract class Board {
         }
 
         // Creation of wordList
-
         if (wordFileNames.isEmpty()) {
             throw new InvalidParameterException("Must have at least one list of words");
         }
@@ -241,6 +241,8 @@ abstract class Board {
         wordList = new ArrayList<>();
         //hi :) -tai
 
+        // For every word list, add to the word list, this isn't as efficient as it could be, but it's not 10^500 items
+        // Soooo...
         for (String fileName : wordFileNames) {
             File file = new File(fileName);
 
@@ -276,6 +278,7 @@ abstract class Board {
 
             Scanner reader = new Scanner(new File(fileName));
 
+            // Skipping over first line which will be done by child boards
             reader.nextLine();
 
             // Second & Third-X Lines
@@ -283,6 +286,7 @@ abstract class Board {
 
             players = new ArrayList<>();
 
+            // This seems complicated but it just follows the saveBoard function's output in reverse
             for (int i = 0; i < numberOfPlayers; i++) {
                 String[] currentPlayer = reader.nextLine().split(",");
 
@@ -367,19 +371,26 @@ abstract class Board {
         System.out.print("\n\n\nYour letters: ");
         for (int i = 0; i < players.get(turn).getSize(); i++) {
             if (i == players.get(turn).getSize() - 1) {
-                System.out.print((char) players.get(turn).getLetters(i) + "\n\n");
+                System.out.print((char) players.get(turn).getLetters(i) + ": " +
+                        Tile.getPoint((char) players.get(turn).getLetters(i)) + "\n\n");
             } else {
-                System.out.print((char) players.get(turn).getLetters(i) + ", ");
+                System.out.print((char) players.get(turn).getLetters(i) + ": " +
+                        Tile.getPoint((char) players.get(turn).getLetters(i)) + ", ");
             }
         }
+
+        // I don't think this will ever be reached
         if (players.get(turn).pieces.isEmpty()) {
             System.out.println("\n\n");
         }
 
+        // For every tile on the board
         for (int y = 0; y < board.length; y++) {
             for (int x = 0; x < board[0].length; x++) {
+                // If the tile is blank, then print a raw letter
                 if(board[x][y].isBlank()) {
                     System.out.print(board[x][y].getLetter() + " ");
+                    // For an empty board print
                 } else if (board[x][y].getLetter() == 0) {
                     // The unicode for a blank space
                     switch (boardSize()) {
