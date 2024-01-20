@@ -375,7 +375,7 @@ abstract class Board {
         for (int y = 0; y < board.length; y++) {
             for (int x = 0; x < board[0].length; x++) {
                 if(board[x][y].isBlank()) {
-                    System.out.print(board[x][y].getLetter());
+                    System.out.print(board[x][y].getLetter() + " ");
                 } else if (board[x][y].getLetter() == 0) {
                     // The unicode for a blank space
                     switch (boardSize()) {
@@ -440,7 +440,7 @@ abstract class Board {
                 } else {
                     // The unicode is for the A emoji letter
                     int unicodeEmoji = 0x1F170 + (board[x][y].getLetter() - 'A');
-                    System.out.print(Character.toString(unicodeEmoji));
+                    System.out.print(Character.toString(unicodeEmoji) + " ");
                 }
             }
             System.out.println();
@@ -759,6 +759,10 @@ abstract class Board {
      * @return points gotten from word, or 0 if the no letter in word has been placed on turn
      */
     public int wordPoints(int[] startPoint, int[] endPoint) {
+        if (Math.abs(startPoint[0] - endPoint[0]) + Math.abs(startPoint[1] - endPoint[1]) < 2) {
+            return 0;
+        }
+
         int wordsPoints = 0;
 
         int wordMultiplier = 1;
@@ -786,8 +790,14 @@ abstract class Board {
                 switch (boardForMultiplier[currentPosition[0]][currentPosition[1]]) {
                     case 2 -> wordsPoints += tilePoint * 2;
                     case 3 -> wordsPoints += tilePoint * 3;
-                    case -2 -> wordMultiplier *= 2;
-                    case -3 -> wordMultiplier *= 3;
+                    case -2 -> {
+                        wordMultiplier *= 2;
+                        wordsPoints += tilePoint;
+                    }
+                    case -3 -> {
+                        wordMultiplier *= 3;
+                        wordsPoints += tilePoint;
+                    }
                     default -> wordsPoints += tilePoint;
                 }
             } else {

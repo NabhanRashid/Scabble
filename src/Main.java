@@ -130,7 +130,7 @@ public class Main {
                     System.out.print("Your file name " +
                             "(Remember to ensure they are in the specified format else they won't work properly): ");
 
-                    fileName = INPUT.nextLine();
+                    fileName = INPUT.nextLine().trim();
 
                     if (!(new File(WORD_FILE_PATH + fileName)).exists() && !fileName.trim().equalsIgnoreCase("no more")) {
                         System.out.println("Please add a file that exists within the Word_List_Files directory");
@@ -138,6 +138,16 @@ public class Main {
                     } else if (fileName.contains(",")) {
                         System.out.println("Do not have a file with a comma, if you would like to use this file, please" +
                                 " change the name");
+                        continue;
+                    }
+
+                    if (wordFileNames.contains(WORD_FILE_PATH + fileName)) {
+                        System.out.println("Please add a file which doesn't already exist");
+                        continue;
+                    }
+
+                    if (fileName.isEmpty()) {
+                        System.out.println("Please enter anything");
                         continue;
                     }
 
@@ -168,15 +178,26 @@ public class Main {
 
                 do {
                     System.out.println("Enter your name (You are allowed any character but a comma)");
-                    playerName = INPUT.nextLine();
+                    playerName = INPUT.nextLine().trim();
 
                     if (playerName.contains(",")) {
                         System.out.println("That name had a comma in it, please try again");
+                        continue;
                     }
 
                     if (playerName.trim().equalsIgnoreCase("no more") && playerNames.size() < 2) {
                         System.out.println("Please add at least two players, it's not much of a game otherwise");
                         playerName = "A";
+                        continue;
+                    }
+
+                    if (playerName.isEmpty()) {
+                        System.out.println("Please add a name with anything in it");
+                        continue;
+                    }
+
+                    if (playerNames.contains(playerName)) {
+                        System.out.println("Please enter a name which doesn't already exist");
                         continue;
                     }
 
