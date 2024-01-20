@@ -178,7 +178,7 @@ public class ThreeDBoard extends Board {
                             boolean notPlaced = true;
                             while (notPlaced) {
                                 letter = input.nextLine();
-                                while (!((letter.length() == 1 && Character.isLetter(letter.charAt(0))) || (letter.charAt(0) == '_' && letter.length() == 2 && Character.isLetter(letter.charAt(0))))) {
+                                while (!((letter.length() == 1 && Character.isLetter(letter.charAt(0))) || (letter.charAt(0) == '_' && letter.length() == 2 && Character.isLetter(letter.charAt(1))))) {
                                     System.out.println("Not a valid letter, select another letter:");
                                     letter = input.nextLine();
                                 }
