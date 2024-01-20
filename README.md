@@ -28,13 +28,13 @@ This document is meant to teach you how to use the program as a player.
 Table of Contents:
 ======================================================================================
 --------------------------------------------------------------------------------------
->### [Rules of Game](#rules-of-game)
->>#### [Rules of 3D Scrabble](#rules-of-3d-scrabble)
->### [Modifying the word list](#modifying-the-word-list)
->### [Starting a Game of Scrabble](#starting-a-game-of-scrabble)
->>#### [Loading a Game of Scrabble](#loading-a-game-of-scrabble)
->### [Playing a Move on Your Turn](#playing-a-move-on-your-turn)
->### [Ending a Game of Scrabble](#ending-a-game-of-scrabble)
+>### [Rules of Game](#rules-of-game-1)
+>>#### [Rules of 3D Scrabble](#rules-of-3d-scrabble-1)
+>### [Modifying the word list](#modifying-the-word-list-1)
+>### [Starting a Game of Scrabble](#starting-a-game-of-scrabble-1)
+>>#### [Loading a Game of Scrabble](#loading-a-game-of-scrabble-1)
+>### [Playing a Move on Your Turn](#playing-a-move-on-your-turn-1)
+>### [Ending a Game of Scrabble](#ending-a-game-of-scrabble-1)
 
 Rules of Game
 ======================================================================================
